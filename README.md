@@ -1,2 +1,2 @@
-# Creative-Spark-Fab-Academy
+# CreativeSparkFabAcademy
 Fab Academy Group documentation
