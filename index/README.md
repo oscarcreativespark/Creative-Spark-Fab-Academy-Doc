@@ -22,7 +22,7 @@ The Enterprise FabLab together with Creative Spark [Print Studio](https://creati
 
 [Electronics Design](https://www.notion.so/Electronics-Design-19caf66ee64e80a4b99bcd11be48f10b?pvs=21)
 
-[Computer Controlled Machining](https://www.notion.so/Computer-Controlled-Machining-19caf66ee64e80e19567fd4bbaf03d4f?pvs=21)
+[Computer Controlled Machining](computer-controlled-machining.md)
 
 [Electronics Design](https://www.notion.so/Electronics-Design-19caf66ee64e80bdbab3c448dad69d64?pvs=21)
 
