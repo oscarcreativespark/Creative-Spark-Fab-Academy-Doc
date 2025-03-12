@@ -1,2 +1,6 @@
-# Creative Spark Fab Academy
-Fab Academy Group documentation 2025
+---
+icon: gears
+---
+
+# Fab Academy Enterprise FabLab
+
