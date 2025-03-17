@@ -1,0 +1,763 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Embedded programming</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="19caf66e-e64e-80a4-acde-e8a97aec4bde" class="page mono"><header><img class="page-cover-image" src="emb.jpg" style="object-position:center 36.650000000000006%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">⚙️</span></div><h1 class="page-title">Embedded programming</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-person"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesPerson"><path d="M10.9536 7.90088C12.217 7.90088 13.2559 6.79468 13.2559 5.38525C13.2559 4.01514 12.2114 2.92017 10.9536 2.92017C9.70142 2.92017 8.65137 4.02637 8.65698 5.39087C8.6626 6.79468 9.69019 7.90088 10.9536 7.90088ZM4.4231 8.03003C5.52368 8.03003 6.42212 7.05859 6.42212 5.83447C6.42212 4.63843 5.51245 3.68945 4.4231 3.68945C3.33374 3.68945 2.41846 4.64966 2.41846 5.84009C2.42407 7.05859 3.32251 8.03003 4.4231 8.03003ZM1.37964 13.168H5.49561C4.87231 12.292 5.43384 10.6074 6.78711 9.51807C6.18628 9.14746 5.37769 8.87231 4.4231 8.87231C1.95239 8.87231 0.262207 10.6917 0.262207 12.1628C0.262207 12.7974 0.548584 13.168 1.37964 13.168ZM7.50024 13.168H14.407C15.4009 13.168 15.7322 12.8423 15.7322 12.2864C15.7322 10.8489 13.8679 8.88354 10.9536 8.88354C8.04492 8.88354 6.17505 10.8489 6.17505 12.2864C6.17505 12.8423 6.50635 13.168 7.50024 13.168Z"></path></svg></span>Owner</th><td><span class="user"><span class="icon text-icon user-icon"><span class="user-icon-inner">O</span></span>Oscar Diaz</span></td></tr></tbody></table></header><div class="page-body"><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="19caf66e-e64e-8029-a26c-c0d46e36fc13"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Group assignment <ul id="19caf66e-e64e-80ea-9bd4-fc69f0282c6e" class="bulleted-list"><li style="list-style-type:disc">Demonstrate and compare the toolchains and development workflows for available embedded architectures</li></ul><ul id="19caf66e-e64e-8031-9efd-f30badde831e" class="bulleted-list"><li style="list-style-type:disc">Document your work to the group work page and reflect on your individual page what you learned</li></ul></div></figure><hr id="19caf66e-e64e-8038-83cf-f40e348ee67d"/><h1 id="19caf66e-e64e-80a7-9c0c-c826638f65fd" class="">About this week</h1><blockquote id="19caf66e-e64e-808e-9880-fbc4b4cdd700" class=""><em>Briefly describe the goal of the assignment. What are you characterizing, testing, or exploring</em></blockquote><p id="19faf66e-e64e-800a-bfbe-c487d94283a9" class="">The <strong>group assignment</strong> for the <strong>Embedded Programming</strong> week is to <strong>compare multiple processors</strong>. This involves analyzing different microcontrollers in terms of their <strong>architecture, memory, peripherals, programming complexity, and performance</strong>. The goal is to understand the trade-offs between various families such as <strong>AVR, ARM, ESP32, and RP2040</strong>, and document findings based on benchmarks and real-world applications​.</p><hr id="19caf66e-e64e-80bc-9762-fc72e388fbda"/><h1 id="19caf66e-e64e-80fd-9685-eced85317a68" class="">Tools and materials used</h1><blockquote id="19caf66e-e64e-800c-b485-cebcce8db693" class=""><em>List all the machines, software and materials used in this assigment.</em></blockquote><ul id="19caf66e-e64e-80b1-8d41-c139d01ad4e9" class="bulleted-list"><li style="list-style-type:disc">THONNY IDE + Seed XIAO ESP32-C3 using MicroPython (Carl)</li></ul><ul id="19faf66e-e64e-8064-a5ee-df8a3085d3db" class="bulleted-list"><li style="list-style-type:disc">Arduino IDE + Seeed XIAO RP2040 with the Seeed Studio XIAO expansion Board.  (Diarmuid)</li></ul><ul id="19faf66e-e64e-807b-b981-e1422e435a79" class="bulleted-list"><li style="list-style-type:disc">BBC micro:bit + micro:bit Python IDE (Thom)</li></ul><hr id="19caf66e-e64e-80ff-972c-fba39f198944"/><h1 id="19caf66e-e64e-801b-8328-d8556b2bcacd" class="">Process and methodology</h1><blockquote id="19caf66e-e64e-80ac-b26c-ffeab2d712b6" class="">Describe step-by-step what the group did. Include sketches, screenshots, or videos if possible.</blockquote><h2 id="19eaf66e-e64e-8044-a59f-e000f0e54f86" class="">THONNY IDE + Seed XIAO ESP32-C3 using MicroPython (Carl)</h2><p id="19eaf66e-e64e-80c6-97a8-d6c7604c716b" class="">
+</p><p id="19eaf66e-e64e-8040-b6d8-f2fb76c686e5" class="">For my part of the group project i will be exploring using Thonny’s IDE to program on an ESP32 using MicroPython as my language. I have some mininal experiance in python so that was the driving factor in my decision as, apart from that i will be aproaching this week as a complete beginner.</p><h3 id="19eaf66e-e64e-808b-9fdc-ec7b862ca7c0" class="">Step 1: Thonny</h3><p id="19eaf66e-e64e-80b2-989f-f7cb15021d7e" class="">Download Thonny from the below website and install it on your machine, in my case a M1 Macbook Pro</p><p id="19faf66e-e64e-80d5-b72c-ea00969e7d85" class="">
+</p><figure id="19eaf66e-e64e-8031-8210-f201811a24c4"><div class="source"><a href="https://thonny.org/">https://thonny.org/</a></div></figure><p id="19eaf66e-e64e-80ca-bc1b-cb3fcb183fb6" class="">
+</p><h3 id="19eaf66e-e64e-80c3-8a71-cc4e81c41e53" class="">Step 2: Plug in your board by USB</h3><p id="19eaf66e-e64e-8023-8be4-c128715aaa50" class="">Once you have conected your board you can navagate to the following menu in Thonny and select “MicroPython ESP32” from the drop down menu.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19eaf66e-e64e-8069-abc6-f9cc5bbf39fa" class="code"><code class="language-JavaScript">Tools -&gt; Options -&gt; Interperater</code></pre><figure id="19eaf66e-e64e-8093-9499-f4ff533966cf" class="image"><a href="Screenshot_2025-02-18_at_20.49.22_Large.jpeg"><img style="width:794px" src="Screenshot_2025-02-18_at_20.49.22_Large.jpeg"/></a></figure><p id="19eaf66e-e64e-80e1-9a2d-daf1d2912e97" class="">
+</p><p id="19eaf66e-e64e-802f-b9d5-fe9cb93fc0fe" class="">Then select your port, It will likely be the ones that ends in cu.modemxxxxx ←your serial number</p><p id="19eaf66e-e64e-800c-be8c-d62cc37e3c8e" class="">
+</p><p id="19eaf66e-e64e-80ca-9e23-cb95928d0869" class="">Next use the menu to:</p><blockquote id="19eaf66e-e64e-809a-a93f-db62f0086626" class="">Install or update MicroPython (esptool)</blockquote><figure id="19eaf66e-e64e-800b-a551-e6352926c501" class="image"><a href="Screenshot_2025-02-18_at_20.53.47_Large.jpeg"><img style="width:710px" src="Screenshot_2025-02-18_at_20.53.47_Large.jpeg"/></a></figure><p id="19eaf66e-e64e-805e-a9ae-ec1e67fe5177" class="">Fill in the values as above or if using a different board change accordingly. Then hit install and wait a few minutes. Thonny will now erase the the firmware board and flash the latest MicroPython firmware on your board.</p><p id="19eaf66e-e64e-8094-bda5-f7f7697943d1" class="">When this is done close out of the menu and press the red Stop/Reset button on the top of the app.</p><p id="19eaf66e-e64e-8097-b570-f52ab930d68b" class="">If all is well you should now have the following text in your Shell on the bottom of the screen.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19eaf66e-e64e-8082-89fc-ec4da5e6ab54" class="code"><code class="language-Shell">MicroPython v1.24.1 on 2024-11-29; ESP32C3 module with ESP32C3
+Type &quot;help()&quot; for more information.
+&gt;&gt;</code></pre><h3 id="19eaf66e-e64e-8001-ba37-d696eacc4b74" class="">Step 3: Testing on your ESP32</h3><p id="19eaf66e-e64e-8076-aa85-d5a55f62673a" class="">Once you have the Shell set up as above you can now start running python directly on your chip. To make sure things are doing well you can try some basic operations such as mathematical operations or print commands.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19eaf66e-e64e-807d-a9f6-d37566d6700f" class="code"><code class="language-Shell">MicroPython v1.24.1 on 2024-11-29; ESP32C3 module with ESP32C3
+Type &quot;help()&quot; for more information.
+&gt;&gt; 1 + 1
+2
+&gt;&gt;</code></pre><p id="19eaf66e-e64e-80d2-b389-fed867b49c25" class="">or</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19eaf66e-e64e-8033-833e-e741983ed9f5" class="code"><code class="language-Shell">MicroPython v1.24.1 on 2024-11-29; ESP32C3 module with ESP32C3
+Type &quot;help()&quot; for more information.
+&gt;&gt; print(&quot;Hello world!&quot;)
+Hello world!
+</code></pre><p id="19eaf66e-e64e-8031-bc76-e7b2c8b8077c" class="">
+</p><h3 id="19eaf66e-e64e-809c-b7d9-c6a46a8f9b1b" class="">Step 4: Make an LED blink using a breadboard.</h3><p id="19eaf66e-e64e-80cc-beaa-c3932872605e" class="">First step is to get your pinout diagram, mine was downloaded from Seeed studio, see below;</p><p id="19eaf66e-e64e-80ce-843c-e0dd5af7110d" class=""><strong> </strong></p><figure id="19eaf66e-e64e-80cc-9bab-d9e4605fac48" class="image"><a href="pin_map-2.png"><img style="width:794px" src="pin_map-2.png"/></a></figure><p id="19eaf66e-e64e-80b6-93e5-f734ebb4d4a6" class="">
+</p><p id="19eaf66e-e64e-80d2-b9d8-f2a071cc51a9" class="">This shows me the names for each of the pins and any additional functionality they might have.</p><hr id="19eaf66e-e64e-803c-b472-f34875c05720"/><p id="19eaf66e-e64e-80d2-8500-d622091e5bf4" class=""><mark class="highlight-teal">Note: Pay attention to the green values labeled GPIO as i got stuck for a while by using the D and A values. For example D0 in your program is listed as</mark></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19eaf66e-e64e-8078-873e-dd5f4b0d0f0f" class="code"><code class="language-Shell">Pin(2, Pin.OUT)</code></pre><p id="19eaf66e-e64e-80f3-af42-cdbf24f30af1" class=""><mark class="highlight-teal"><mark class="highlight-default_background">This is because its reference is GPIO2</mark></mark></p><hr id="19eaf66e-e64e-80ae-ab4a-e589f55b3ece"/><p id="19eaf66e-e64e-80cd-9b54-f3e31039fedf" class="">
+</p><p id="19eaf66e-e64e-8088-a10e-f6d1d6aaa9ac" class="">I set up my breadboard as below.</p><figure id="19eaf66e-e64e-8054-964b-c450b2c36daf" class="image"><a href="USB_-_1.jpeg"><img style="width:640px" src="USB_-_1.jpeg"/></a></figure><p id="19eaf66e-e64e-809c-97fb-c02271792e17" class="">I have GPIO2 connected to the positive leg of an LED and i then have the negative leg of the led connected back to ground. (GND on the pinout)</p><p id="19eaf66e-e64e-8038-8083-d471934fea0c" class="">
+</p><p id="19eaf66e-e64e-806d-86a0-c87f6bd37445" class="">With this setup i use the following code in Thonny.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19eaf66e-e64e-80f9-a95a-f3a1451b991a" class="code"><code class="language-Python">from machine import Pin
+from time import sleep
+led = Pin(2, Pin.OUT)
+while True:
+  led.value(not led.value())
+  sleep(1)</code></pre><p id="19eaf66e-e64e-8067-9949-d8281665fd1e" class="">
+</p><p id="19eaf66e-e64e-8077-8589-fa1921384db6" class="">We can look at it line by line to see what is going on.</p><p id="19eaf66e-e64e-80ec-aa5b-fcc27e59c27a" class=""><strong>Importing modules</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19eaf66e-e64e-804d-964a-eba59c47412a" class="code"><code class="language-Python">#From the module &#x27;machine&#x27; import the function &#x27;Pin&#x27;
+#This allows us to talk to the board and reference the diferent pins
+#based on ther GPIO numbers
+from machine import Pin
+#From the module &#x27;time&#x27; import the function &#x27;sleep&#x27;
+#This module brings in the ability for python to keep time
+#We will be using it to tell the program to wait inbetween each blink
+from time import sleep</code></pre><p id="19eaf66e-e64e-8019-ab5e-cbc4eec32657" class=""><strong>Setting Variables</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19eaf66e-e64e-8020-8dfd-d240e6486f0b" class="code"><code class="language-Python">#Here we set a variable &#x27;led&#x27; to the value of the output of the
+#pin called GPIO2
+led = Pin(2, Pin.OUT)</code></pre><p id="19eaf66e-e64e-8054-a494-e3d275b5323e" class=""><strong>Looping</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="19eaf66e-e64e-80e6-9bdb-ef6b033cbb04" class="code"><code class="language-Python">#This creates and infinit loop for testing purposes, the program will run
+#until it is told to stop
+while True:
+	#led.value() reads the current value of the variable led
+	#not can be used invert a value
+	#so led.value(not led.value()) reads the current value of led and then
+	#sets it to the opposit
+  led.value(not led.value())
+  #asks the program to wait 1 second before looping again.
+  sleep(1)</code></pre><p id="19eaf66e-e64e-80e4-aeff-d9c4e23890e8" class="">
+</p><p id="19eaf66e-e64e-801f-bb65-d5bf5b22f694" class="">Success!</p><figure id="19eaf66e-e64e-80af-8180-fecffcea223f" class="image"><a href="ESP32-LED_-_1.jpeg"><img style="width:640px" src="ESP32-LED_-_1.jpeg"/></a></figure><p id="19eaf66e-e64e-805b-8066-c4be9c22949c" class="">You are likely now feeling a rush of power and basking in the glow of both your own huge brain and the cool blue of the blinking LED. Take a moment to enjoy this.</p><p id="19eaf66e-e64e-801e-a96a-e4dc2160baeb" class="">
+</p><p id="19eaf66e-e64e-80ed-a004-e44cf5cb73d8" class="">Now that you have got yourself together…</p><p id="19eaf66e-e64e-8011-a855-d4600cdcff47" class="">
+</p><h3 id="19eaf66e-e64e-8090-a37a-ef638eab0d81" class="">Conclusions!</h3><p id="19eaf66e-e64e-8028-b21d-e651d47bdd92" class="">
+</p><p id="19eaf66e-e64e-80af-b178-d949686c9969" class="">Though i am righting from a place of inexperience i have to say that i am very happy with this workflow.</p><p id="19eaf66e-e64e-8074-82df-d916e4a0b006" class=""><strong>Pro’s</strong></p><p id="19eaf66e-e64e-80fb-af97-eee6c33713ef" class=""><mark class="highlight-teal">The tools are very simple without all the layers of menus and options that i see in the bigger IDE’s that can be very intimidating for beginner.</mark></p><p id="19eaf66e-e64e-803d-8ab8-c60915721e03" class=""><mark class="highlight-teal">While it may well be possible that i will outgrow this workflow someday and will need more advanced tools, for a beginner i can definitely recommend it.</mark></p><p id="19eaf66e-e64e-802e-bece-f3490b7dca9e" class=""><strong>Con’s</strong></p><p id="19eaf66e-e64e-808f-83cd-efb1beea2e06" class=""><mark class="highlight-red">There were moments where i was running into issues and its possible the a more advanced IDE would be able to give me more guidance as to what was going wrong, for example for a long time i was connected to the wrong pin as i was using the D0 value rather than GPIO2 in my code. More precise error messages or something to tell me that the Pin that i was calling wasn&#x27;t connected to anything would have been nice</mark></p><p id="19eaf66e-e64e-80f0-8d42-f0d48c9737dc" class=""><mark class="highlight-red">A small complaint with the ESP32-C3 from Xiao is that i could not find a way to use the onboard led for testing a blink program. So this meant that i needed to jump straight into learning how to use a breadboard. Although this is likely now good experience, having a onboard LED is a very nice and standard way for a beginner to see the code on there screen generating an output on the device.</mark></p><p id="19eaf66e-e64e-80d5-b82e-f08aa4ab1f5a" class=""><strong>Overall</strong></p><p id="19eaf66e-e64e-8017-94bd-e5ad04baf027" class="">Despite the cons looking longer then the pros word count wise i am very happy with this workflow and will likely stick with it as i build out more of the details around my final project.</p><h2 id="19eaf66e-e64e-801f-9981-e2e3dbd344e8" class="">Arduino IDE + Seeed XIAO RP2040 with the Seeed Studio XIAO expansion Board.  (Diarmuid)</h2><p id="203fd144-68f1-48d2-8a50-75afcfa4eee8" class="">Looking at Arduino IDE and the Seeed XIAO RP2040 with the Seeed Studio XIAO expansion Board. Start by Download the Arduino IDE use the link below.</p><p id="19eaf66e-e64e-8042-b75b-fd510de8eceb" class=""><a href="https://www.arduino.cc/en/software">https://www.arduino.cc/en/software</a></p><figure id="19eaf66e-e64e-8058-a7bd-e75a12aea2ab" class="image"><a href="pic_03_01.jpeg"><img style="width:626.9921875px" src="pic_03_01.jpeg"/></a></figure><p id="6b3d460f-1de6-4b68-9b4f-5c06c2588e34" class="">
+</p><p id="940eef26-3c70-4aa1-a77b-5fc013a71501" class="">Go to the arduino.cc website, navigate to the software page and download your appropriate operating system flavour. Mac OS Intel in my case.</p><figure id="19eaf66e-e64e-80d5-a812-d5cdbf70cb7d" class="image"><a href="pic_03_02.jpeg"><img style="width:626.984375px" src="pic_03_02.jpeg"/></a></figure><p id="19eaf66e-e64e-805b-ac71-f603c13b2a43" class="">
+</p><p id="30ad3404-58bd-45bf-bedf-4e3e37a6f22a" class="">Click just download (or make a donation if you’re feeling generous)</p><figure id="19eaf66e-e64e-801c-817c-c3be5b34492c" class="image"><a href="pic_03_03.jpeg"><img style="width:626.9921875px" src="pic_03_03.jpeg"/></a></figure><p id="cd5349c0-eeae-41f9-88ea-b1331eaa52d9" class="">
+</p><p id="143b46a9-c08f-49a2-86df-2f68a6b8b68f" class="">And again Just download (or add an email if you want updates)</p><figure id="19eaf66e-e64e-80c6-898f-d9bd75955c12" class="image"><a href="pic_03_04.jpeg"><img style="width:626.9921875px" src="pic_03_04.jpeg"/></a></figure><p id="19eaf66e-e64e-8087-9960-ebd1a499b1ff" class="">
+</p><p id="097a91b0-8859-4162-a233-9514bd0d5bb1" class="">Open you downloads folder and open the downloaded Arduino installer.</p><figure id="19eaf66e-e64e-80d3-8b39-f3527e86472d" class="image"><a href="pic_03_05.jpeg"><img style="width:626.9140625px" src="pic_03_05.jpeg"/></a></figure><p id="19eaf66e-e64e-8021-8041-f413a0040228" class="">
+</p><p id="15b7a580-144e-4dc6-9d9c-d31a5563d18d" class="">drag the Arduino Icon to the applications folder.</p><figure id="19eaf66e-e64e-8026-b783-f2110fbbc9e6" class="image"><a href="pic_03_06.jpeg"><img style="width:626.984375px" src="pic_03_06.jpeg"/></a></figure><p id="19eaf66e-e64e-8039-b93b-e2c85ced1121" class="">
+</p><p id="db8fc716-9898-4505-b043-676d090ab33d" class="">Arduino IDE has been installed – congratulations!!</p><p id="8a4519d7-5a75-434a-9f7f-0158be4165c2" class="">This should be the screen we see when we open Arduino IDE</p><figure id="19eaf66e-e64e-8082-8284-f2db6b1aa337" class="image"><a href="pic_03_07.jpeg"><img style="width:626.9921875px" src="pic_03_07.jpeg"/></a></figure><p id="19eaf66e-e64e-806e-8151-ef1010099c1b" class="">
+</p><p id="2152863e-b99b-4297-b107-6a1672b317cb" class="">As we are going to be using the  Seeed Studio XIAO RP2040 there are a few more bits we need to installed to be able to use the board with the Arduin IDE</p><p id="c2a4d2d9-b762-4f5e-a8c8-db264372b84d" class="">We went to Seeed Studio wiki to learn more.</p><p id="3e19ef31-90b7-4259-b1f6-af3c5373e452" class=""><a href="https://wiki.seeedstudio.com/XIAO-RP2040/">https://wiki.seeedstudio.com/XIAO-RP2040/</a></p><figure id="19eaf66e-e64e-80b2-9b05-e68a84cfb1fe" class="image"><a href="pic_03_08.jpeg"><img style="width:626.984375px" src="pic_03_08.jpeg"/></a></figure><p id="19eaf66e-e64e-80e5-a313-dd0431d4b38e" class="">
+</p><p id="fc4f073b-1c70-44cc-b968-74ecf147bb46" class="">This website gives basic overview of the RP 2040 below we can see the basic components if the board.</p><figure id="19eaf66e-e64e-80c8-a0cb-c04fdb411b0c" class="image"><a href="pic_03_09.jpeg"><img style="width:626.9921875px" src="pic_03_09.jpeg"/></a></figure><p id="a004d6eb-2c91-4b46-a6b0-d8dc455c682c" class="">below are detail of the pinouts for the XIAO-PR2040</p><figure id="19eaf66e-e64e-8027-a938-e28e50dbf5da" class="image"><a href="pic_03_09_1.jpeg"><img style="width:659.9921875px" src="pic_03_09_1.jpeg"/></a></figure><p id="5bb0a5ef-5732-41aa-8055-f60f70495120" class="">A few things to be mindful how to enter Boot loader Mode and how to reset direct from the website.</p><p id="241a928c-ab9c-4084-8d50-9a5924b0847d" class=""><em><code>Enter Bootloader Mode</code></em><em><strong><a href="https://wiki.seeedstudio.com/XIAO-RP2040/#enter-bootloader-mode"></a></strong></em></p><p id="62328f94-2eee-4719-97ac-546a4ac57038" class=""><em><code>Sometimes the Seeed Studio XIAO RP2040 port may disappear when user programming process fails. we can solve this problem by the following operation:</code></em></p><ul id="8a226820-1f7b-44a4-b37e-acd975099674" class="bulleted-list"><li style="list-style-type:disc"><em><code>Long press the &quot;B&quot; button.</code></em></li></ul><ul id="928493a3-f784-4c3b-9d33-924918e0ee3c" class="bulleted-list"><li style="list-style-type:disc"><em><code>Connect the Seeed Studio XIAO PR2040 to your computer.</code></em></li></ul><ul id="1c3823a2-2b3e-4bf1-85aa-f2c8fbf2b8b4" class="bulleted-list"><li style="list-style-type:disc"><em><code>The computer will appear a disk driver.</code></em></li></ul><p id="853ce215-bc54-41a6-82ea-3ac40df6a728" class=""><em><code>At this point, the chip enters Bootloader mode and the burn port appears again. Because the RP2040 chip has two partitions, one is the Bootloader and the other is the user program. The product will burn a bootloader code in the system memory when it leaves the factory. We can switch modes by performing the above steps.</code></em></p><p id="9e4d3478-97bd-422e-92a9-19217f80c044" class=""><em><code>Reset</code></em><em><strong><a href="https://wiki.seeedstudio.com/XIAO-RP2040/#reset"></a></strong></em></p><p id="c63726ee-7e54-4448-99bb-43b75867651e" class=""><em><code>If you want to reset the Seeed Studio XIAO RP2040, perform the following steps:</code></em></p><ul id="630ae6ce-c7a8-4e38-90d4-efbe43fc604b" class="bulleted-list"><li style="list-style-type:disc"><em><code>Connect the Seeed Studio XIAO RP2040 to your computer.</code></em></li></ul><ul id="930f47a2-c25b-479e-a003-0d97b16fa14f" class="bulleted-list"><li style="list-style-type:disc"><em><code>Press the &quot;R&quot; pins once.</code></em></li></ul><p id="8ee4ee00-8759-4a68-b15d-a291f15310b8" class=""><em><code>Please note: The behavior of the built-in programmable Single-colour LEDs (They are red, blue and green) are reversed to the one on an Arduino. On the Seeed Studio XIAO RP2040, the pin has to be pulled low to enable.</code></em></p><p id="19eaf66e-e64e-8069-8def-d70034d50f7a" class="">
+</p><p id="e90511bb-29c7-4bf2-906b-ae9010441ece" class="">At the bottom of this page you will find a link to the ebook XIAO Big Power Small Board</p><p id="b1cabc52-39c6-4010-a636-bec2462a2021" class=""><a href="https://mjrovai.github.io/XIAO_Big_Power_Small_Board-ebook/">https://mjrovai.github.io/XIAO_Big_Power_Small_Board-ebook/</a></p><figure id="19eaf66e-e64e-80cc-8a76-e75f5e4673c9" class="image"><a href="pic_03_10.jpeg"><img style="width:675px" src="pic_03_10.jpeg"/></a></figure><p id="9fbc83df-ef23-408e-99e6-eb9a7dabe3a7" class="">We went through this for getting started with the XIAO and it is also where we got the links to download the necessary programmes or add-in’s for Arduino. </p><p id="19eaf66e-e64e-80a4-954f-c02fe07622ff" class="">See section 1.1.2</p><p id="bdd1fbd9-8f6d-405e-bc32-b15b8e15e628" class="">In my case I am installing the RP2040 files you can also find ESP32C3 links also.</p><figure id="19eaf66e-e64e-805d-9450-c61a8d232b47" class="image"><a href="pic_03_11.jpeg"><img style="width:664px" src="pic_03_11.jpeg"/></a></figure><p id="19eaf66e-e64e-805e-be18-f7da4bcdc78f" class="">
+</p><p id="fa526357-a0b7-4084-b023-2c2b348affed" class="">To install these copy the link go to Arduino IDE preferences.</p><figure id="19eaf66e-e64e-8028-8128-fe5b5d957ceb" class="image"><a href="pic_03_12.jpeg"><img style="width:659.9921875px" src="pic_03_12.jpeg"/></a></figure><p id="19eaf66e-e64e-808d-9c8d-e18e2686e236" class="">
+</p><p id="25c0ad8c-5137-459e-9a28-65e32ccf9b36" class="">Paste the link into the additional boards manager section</p><figure id="19eaf66e-e64e-80f6-b98c-e5f8a2525573" class="image"><a href="pic_03_13.jpeg"><img style="width:660px" src="pic_03_13.jpeg"/></a></figure><p id="0bfac881-1ab0-4a4b-b617-d213b16d27b6" class="">As we have more than one link we can click the button to the right which allows us to add more than one link.</p><figure id="19eaf66e-e64e-80b1-94d0-f24fbf0c35c6" class="image"><a href="pic_03_14.jpeg"><img style="width:660px" src="pic_03_14.jpeg"/></a></figure><p id="3a422fe2-ff92-4346-8377-8e030d659fd7" class="">Next we need to add the boards in the board manager. Under tools&gt; board&gt; boards manager</p><figure id="19eaf66e-e64e-80f2-864a-feb4f9eb429b" class="image"><a href="pic_03_15.jpeg"><img style="width:660px" src="pic_03_15.jpeg"/></a></figure><p id="19eaf66e-e64e-8099-8fde-e02e4d9e57ea" class="">
+</p><p id="fe393205-bd79-4b8d-800b-21f162ff17b6" class="">Search Seeed XIAO and find the Raspberry Pi Pico/RP2040/RP2350 and click install – once installed it should look like the image below and tell you that it is installed.</p><figure id="19eaf66e-e64e-8049-9d8e-e53d5347ed3a" class="image"><a href="pic_03_16.jpeg"><img style="width:659.9921875px" src="pic_03_16.jpeg"/></a></figure><p id="19eaf66e-e64e-8034-ae47-ca3dca2a2509" class="">
+</p><p id="c1b833ba-5be2-47fc-9d85-0673196de913" class="">We can now select the RP2040 board  Tools&gt; boards&gt; Raspberry pi Pico/RP2040/RP2350 and scroll down until you get to the Seeed RP2040</p><figure id="19eaf66e-e64e-8084-9ad2-cec1489f72a8" class="image"><a href="pic_03_17.jpeg"><img style="width:660px" src="pic_03_17.jpeg"/></a></figure><p id="19eaf66e-e64e-804f-8be0-ebbc7bb567b0" class="">
+</p><p id="19eaf66e-e64e-80f8-9026-f3db23efbe14" class="">
+</p><p id="4968b0d0-95d6-4ceb-aa3e-59e08cf86fdd" class="">Connect the board to the computer with USB C cable, We need to select the<br/>board from the drop down it should be something like the image below unconfirmed board usbmodem or similar – it should at least have USB somewhere in the name.<br/></p><figure id="19eaf66e-e64e-8094-8f50-da3779bf40fe" class="image"><a href="pic_03_18.jpeg"><img style="width:660px" src="pic_03_18.jpeg"/></a></figure><p id="19eaf66e-e64e-80e7-bba1-d151e34797bd" class="">
+</p><p id="b169a90f-4f13-4973-8b62-f4424b02b89c" class="">We may need to tell Arduino what board is connected. See image below.</p><figure id="19eaf66e-e64e-8048-8586-fbc3df21c907" class="image"><a href="pic_03_19.jpeg"><img style="width:660px" src="pic_03_19.jpeg"/></a></figure><p id="19eaf66e-e64e-8083-87b7-ccf880ae0896" class="">
+</p><p id="19eaf66e-e64e-802a-a287-f4d4f95ef8a7" class="">
+</p><p id="935f5d39-081f-49ac-bec9-9cdcde9086e5" class="">Finally…. lets start with simple code sample - I’m going to use Niels sample code for this link below.</p><p id="19eaf66e-e64e-807b-b382-fdf9bf564680" class=""><a href="https://academy.cba.mit.edu/classes/embedded_programming/RP2040/hello.button-blink.RP2040.1.ino">https://academy.cba.mit.edu/classes/embedded_programming/RP2040/hello.button-blink.RP2040.1.ino</a></p><p id="19eaf66e-e64e-80eb-98c3-cddcc1c20017" class="">copy and paste this code into the Arduion IDE</p><figure id="19eaf66e-e64e-80bf-96c7-d586e1ad0805" class="image"><a href="pic_03_20.jpeg"><img style="width:660px" src="pic_03_20.jpeg"/></a></figure><p id="19eaf66e-e64e-80bf-9d0b-faa3ae14758e" class="">
+</p><p id="19eaf66e-e64e-801a-bac3-e6ea49582ec6" class="">As we are using the Seeed Studio XIAO Expansion Board here is the relevant pinout diagram.</p><figure id="19eaf66e-e64e-803f-a041-e390c26ef0a5" class="image"><a href="pic_03_21.jpeg"><img style="width:660px" src="pic_03_21.jpeg"/></a></figure><p id="19eaf66e-e64e-80b0-8b68-fb86d56c9e4a" class="">
+</p><p id="19eaf66e-e64e-80d7-81ae-d699f2120e58" class="">I need to make some changes to Neil’s code for the correct pinouts</p><p id="19eaf66e-e64e-804f-9849-fb180f02d53c" class="">led_pin 1 is changed to D5 and button_pin 0 changed to D1 </p><figure id="19eaf66e-e64e-8088-b440-d24432258e12" class="image"><a href="pic_03_201.jpeg"><img style="width:663.9921875px" src="pic_03_201.jpeg"/></a></figure><p id="19eaf66e-e64e-803e-816d-cdd1fd85bec8" class="">
+</p><p id="19eaf66e-e64e-80fb-9d56-cb83fa0bf91d" class="">Verify the code (tick button top left of Arduino IDE)</p><figure id="19eaf66e-e64e-8002-b6ce-f6391d7ad1f7" class="image"><a href="pic_03_22.jpeg"><img style="width:663.9921875px" src="pic_03_22.jpeg"/></a></figure><p id="19eaf66e-e64e-8056-84b4-c5b444de2ef2" class="">
+</p><p id="19eaf66e-e64e-80d8-bb4b-fd44631f55bd" class="">and upload the code to the board (right arrow top left of Arduino IDE)</p><figure id="19eaf66e-e64e-806a-aea7-ca73d191d77d" class="image"><a href="pic_03_23.jpeg"><img style="width:663.9921875px" src="pic_03_23.jpeg"/></a></figure><p id="19eaf66e-e64e-80a8-a652-c882ffb5bff7" class="">
+</p><p id="19eaf66e-e64e-806d-8a3b-fa3058028054" class="">We can now press the button bottom right of the Expansion board to switch on and off the led.</p><p id="19eaf66e-e64e-8092-8c34-cb269adde939" class="">
+</p><figure id="19eaf66e-e64e-8074-930b-e7ebb2434c1b"><div class="source"><a href="blink_button_01.mp4">blink_button_01.mp4</a></div></figure><p id="19eaf66e-e64e-80b5-8648-fcf36e8dd6f6" class="">
+</p><p id="19eaf66e-e64e-8070-a684-e46aa375824e" class="">
+</p><hr id="19faf66e-e64e-8009-ade0-d5620c677e1e"/><p id="19faf66e-e64e-80d6-a23a-c4ce68196532" class="">Thom Conaty - Week 4 Group Assignment:</p><h2 id="19eaf66e-e64e-805c-aaf2-f9860a49bb0e" class="">BBC micro:bit + Microsoft (micro:bit) Python IDE</h2><hr id="19faf66e-e64e-8031-93cd-f4a26d6e3fb0"/><p id="19faf66e-e64e-8076-af72-dd9ed87e4db1" class="">0.Introduction</p><p id="19faf66e-e64e-8065-b77d-e6e661f253dc" class="">The <a href="https://microbit.org/">micro:bit</a> is a pocket-sized computer designed by the BBC for use in computer education. Originally created for UK schools to inspire digital creativity in young people, it has become a global educational tool ideal for students aged 8-16 years old and beginners in programming and electronics.</p><p id="19faf66e-e64e-80e2-a167-f8d0849287fe" class="">
+</p><p id="19faf66e-e64e-8055-90dc-fecf58ce16ca" class="">Key strengths:</p><ul id="19faf66e-e64e-80f8-ad7c-c15edcca9ec1" class="bulleted-list"><li style="list-style-type:disc"><strong>Educational Focus</strong> - Designed specifically for learning, with an intuitive interface and gradual learning curve</li></ul><ul id="19faf66e-e64e-800f-b6c3-d7809a98eb0d" class="bulleted-list"><li style="list-style-type:disc"><strong>Immediate Feedback</strong> - Built-in LED display and sensors provide instant visual feedback for code execution</li></ul><ul id="19faf66e-e64e-80ea-9299-d4ea4f04cf67" class="bulleted-list"><li style="list-style-type:disc"><strong>No Setup Required</strong> - Works straight out of the box with web-based programming interface</li></ul><ul id="19faf66e-e64e-807d-88ec-e4a5f57c0a18" class="bulleted-list"><li style="list-style-type:disc"><strong>Robust Design</strong> - Durable construction suitable for classroom environments and young users</li></ul><ul id="19faf66e-e64e-809c-a70c-f414762ad729" class="bulleted-list"><li style="list-style-type:disc"><strong>Progressive Learning Path</strong> - Supports transition from block-based to text-based programming</li></ul><ul id="19faf66e-e64e-8048-b5a1-d20167ae9e24" class="bulleted-list"><li style="list-style-type:disc"><strong>Affordable</strong> - Cost-effective solution for schools and individual learners</li></ul><p id="19faf66e-e64e-8029-8d0b-e97e7db206e9" class="">
+</p><p id="19faf66e-e64e-8031-a8bf-f66851918df0" class=""><strong>Key features</strong> include:</p><ul id="19faf66e-e64e-8085-877a-d3a8d904520c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.nordicsemi.com/products/nrf52833">Nordic nRF52833 processor with Bluetooth 5.1 BLE</a> - A general-purpose multiprotocol SoC with a Bluetooth Direction Finding capable radio, qualified for operation at an extended temperature range of -40°C to 105°C. It is the 5th addition to the industry leading nRF52 Series and is built around a 64 MHz Arm Cortex-M4 with FPU, and has 512 KB flash and 128 KB RAM memory available for higher value applications.</li></ul><ul id="19faf66e-e64e-8090-b075-d81cb5c3846f" class="bulleted-list"><li style="list-style-type:disc">25 LED matrix display</li></ul><ul id="19faf66e-e64e-8049-bb2b-fb998e92fb8f" class="bulleted-list"><li style="list-style-type:disc">2 programmable buttons</li></ul><ul id="19faf66e-e64e-8064-a4f9-fe04999469d7" class="bulleted-list"><li style="list-style-type:disc">Motion sensors (accelerometer and compass)</li></ul><ul id="19faf66e-e64e-80c0-be8d-e6628e693de2" class="bulleted-list"><li style="list-style-type:disc">Temperature and light sensors</li></ul><ul id="19faf66e-e64e-803f-bc6a-c351f8959b8f" class="bulleted-list"><li style="list-style-type:disc">Edge connector with large pins for external connections</li></ul><ul id="19faf66e-e64e-8026-a41e-d3835e23fbcd" class="bulleted-list"><li style="list-style-type:disc">USB interface for programming</li></ul><h3 id="19faf66e-e64e-8088-b820-d85fc5c5f384" class="">Programming Options</h3><ul id="19faf66e-e64e-8038-8474-e174dbe45f0e" class="bulleted-list"><li style="list-style-type:disc"><a href="https://makecode.microbit.org/">Microsoft MakeCode</a> - Block-based and JavaScript programming environment</li></ul><ul id="19faf66e-e64e-80b0-9123-ebf17f303605" class="bulleted-list"><li style="list-style-type:disc"><a href="https://python.microbit.org/v/3">Python Programming Environment for micro:bit</a></li></ul><ul id="19faf66e-e64e-80fc-8909-d8bae772875c" class="bulleted-list"><li style="list-style-type:disc">Python (via MicroPython) - For text-based programming</li></ul><ul id="19faf66e-e64e-800d-91ca-dbd834711f5b" class="bulleted-list"><li style="list-style-type:disc">Scratch integration - Familiar environment for young coders</li></ul><h3 id="19faf66e-e64e-80bc-8b54-c428a6f37571" class="">Educational Resources</h3><ul id="19faf66e-e64e-80bd-a6ea-e614341e8ad5" class="bulleted-list"><li style="list-style-type:disc">Complete, editable computing units for ages 7-11</li></ul><ul id="19faf66e-e64e-8042-ab70-ec8312833323" class="bulleted-list"><li style="list-style-type:disc"><a href="https://microbit.org/get-started/first-steps/">First Steps with micro:bit</a></li></ul><ul id="19faf66e-e64e-8078-b5fc-e8712089cc20" class="bulleted-list"><li style="list-style-type:disc">Advanced projects for ages 11-14 covering computing fundamentals, cyber security, and cryptography</li></ul><ul id="19faf66e-e64e-80fd-8b53-fde31e94dd7a" class="bulleted-list"><li style="list-style-type:disc">Cross-curricular links for art, science, and geography</li></ul><ul id="19faf66e-e64e-809b-8ba4-f7188487538f" class="bulleted-list"><li style="list-style-type:disc">Global sustainability and problem-solving projects</li></ul><hr id="19caf66e-e64e-80db-8d4c-c578f1cc8d79"/><h2 id="19faf66e-e64e-80a5-96da-f8354f62315e" class=""><strong>How to use the BBC micro:bit with Python</strong></h2><p id="19faf66e-e64e-80ae-ae89-cf0ca97d9549" class="">[Note: Demo code and Nordic nRF52833 processor Datasheet at bottom of document]</p><p id="19faf66e-e64e-80f7-8037-e60b9dbd237f" class="">
+</p><ol type="1" id="19faf66e-e64e-80ba-b950-c7ea85845799" class="numbered-list" start="1"><li><strong>Setup</strong></li></ol><p id="19faf66e-e64e-8067-9d88-fb161bc37b95" class="">Visit <a href="https://python.microbit.org/v/3">Python Editor for micro:bit</a> to access the cloud-based Microsoft Python Editor</p><figure id="19faf66e-e64e-8063-8d51-f877bc97e7bb" class="image"><a href="mbitpython.jpg"><img style="width:793.9921875px" src="mbitpython.jpg"/></a></figure><hr id="19faf66e-e64e-80de-b183-d463cefc3c8e"/><p id="19faf66e-e64e-803d-8cbf-e54f6d5a1867" class="">Step 2: <strong>Writing Code</strong></p><p id="19faf66e-e64e-803f-b129-fe319a60818e" class="">The IDE facilitates developing patches in Python and communication with the micro:bit: This Python code creates an interactive program that scrolls a message and plays music:</p><figure id="19faf66e-e64e-800a-b756-c6e718ac396f" class="image"><a href="mbitcode2.jpg"><img style="width:709.9921875px" src="mbitcode2.jpg"/></a></figure><hr id="19faf66e-e64e-8070-8a46-eac8ba6cd49a"/><p id="19faf66e-e64e-8039-9312-e225e2d25e4a" class="">Step 3: <strong>Testing the IDE Simulator</strong></p><p id="19faf66e-e64e-8086-9204-deb4de6733f7" class="">Before uploading to the physical device, we can test our code in the built-in simulator:</p><figure id="19faf66e-e64e-8081-ae36-ebee7b354f70"><div class="source"><a href="output_tiny3.mp4">output_tiny3.mp4</a></div></figure><hr id="19faf66e-e64e-80f7-a544-ca912d8a790e"/><p id="19faf66e-e64e-80bb-a568-c547ed303658" class="">Step 4: <strong>Testing on the micro:bit</strong></p><p id="19faf66e-e64e-804f-a5c9-e3fb4a09d6d5" class="">Connect your micro:bit to your computer using the supplied USB cable. The LED matrix will light up, indicating that the device is powered on. Once connected, follow these steps:</p><ul id="19faf66e-e64e-8034-a3d9-de909eea0644" class="bulleted-list"><li style="list-style-type:disc">Click the &#x27;Connect&#x27; button to pair with your micro:bit</li></ul><ul id="19faf66e-e64e-8077-959e-e0df376bed18" class="bulleted-list"><li style="list-style-type:disc">Click &#x27;Send to micro:bit&#x27; to flash the code</li></ul><ul id="19faf66e-e64e-802c-814b-caa9872e70b7" class="bulleted-list"><li style="list-style-type:disc">Press button A to see the message scroll and hear the tune</li></ul><figure id="19faf66e-e64e-8093-8a4b-e31ca8dbdb56" class="image"><a href="mbiton.jpg"><img style="width:793.9921875px" src="mbiton.jpg"/></a></figure><hr id="19faf66e-e64e-8047-86e9-dc87e647c370"/><p id="19faf66e-e64e-80f0-a1ed-d2091284371a" class="">Step Fun: <strong>Microbit in action!</strong></p><figure id="19faf66e-e64e-8037-af20-ffa296c9db3c"><div class="source"><a href="output_tiny2.mp4">attachment:ffc25f4a-2cdf-401b-814a-0e139a10914a:output_tiny2.mp4</a></div></figure><p id="19faf66e-e64e-80f2-af25-e1400106a53d" class="">
+</p><hr id="19faf66e-e64e-80f2-94a5-e03542699e4a"/><p id="19faf66e-e64e-8094-a7dc-fdd99ee9ea84" class="">
+</p><h1 id="19caf66e-e64e-808e-ad82-ecf11828b6ef" class="">Group conclusions</h1><blockquote id="19caf66e-e64e-803b-a9c8-c40bce78eaa5" class=""><strong>Findings:</strong> [What did you learn from the process?]</blockquote><p id="19faf66e-e64e-8069-816d-c2d6840ffcf3" class="">How to programme with Arduino IDE, the vast range of microcontrollers that are out there and  </p><blockquote id="19caf66e-e64e-80b6-8a22-f98308b96a5c" class=""><strong>Challenges:</strong> [What issues did you encounter?]</blockquote><p id="19faf66e-e64e-802e-8c85-d329a4dfb61e" class="">Issues with install of Arduino after a few days it would not compile on my mac - I suspect iCloud drive was the issue - pushing the Arduino folder to the cloud and libraries not getting pulled when neeeded - I will monitor this.</p><blockquote id="19caf66e-e64e-80b4-9fb2-e12331f6d4de" class=""><strong>Solutions:</strong> [How did you solve them?]</blockquote><p id="19caf66e-e64e-800b-a94b-d40c9e871a8f" class="">For the compiling issue on the Mac I deleted Arduino IDE and the Arduino folder in Documents - and reinstalled everything - this worked will monitor how it goes over the next few weeks - I would like to be able to get the Arduino folder in my Mac to stay on my Mac permanently - any idea how to do this?</p><hr id="19caf66e-e64e-80ca-ad88-cf91a93eef35"/><h1 id="19caf66e-e64e-80ec-93f9-dc2cbbc63e7c" class="">Files </h1><blockquote id="19caf66e-e64e-8059-8ce5-f9c3fa994e54" class="">Add all files created for this group assignment</blockquote><p id="19caf66e-e64e-8047-a178-f52590563c3c" class="">See below link to to files created this week:</p><p id="19caf66e-e64e-8061-82d1-e8f6be2ed965" class="">
+</p><figure id="19faf66e-e64e-8096-b9a3-dd2ee2cabc8a"><div class="source"><a href="Blink_xiao_rp2040.zip">Blink_xiao_rp2040.zip</a></div></figure><figure id="19faf66e-e64e-80c3-951b-d2075c5978c5"><div class="source"><a href="microbit_hex_file_scroll_and_audio.zip">microbit_hex_file_scroll_and_audio.zip</a></div></figure><figure id="19faf66e-e64e-800e-83e7-e09739c41169"><div class="source"><a href="nRF52833_datasheet.pdf">nRF52833_datasheet.pdf</a></div></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

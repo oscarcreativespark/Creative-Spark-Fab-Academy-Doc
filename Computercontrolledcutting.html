@@ -1,0 +1,685 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Computer controlled cutting</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="19caf66e-e64e-80bd-a4d0-f32faf025695" class="page mono"><header><img class="page-cover-image" src="images/laser.jpg" object-position:center 77.79%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">⚙️</span></div><h1 class="page-title">Computer controlled cutting</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-person"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesPerson"><path d="M10.9536 7.90088C12.217 7.90088 13.2559 6.79468 13.2559 5.38525C13.2559 4.01514 12.2114 2.92017 10.9536 2.92017C9.70142 2.92017 8.65137 4.02637 8.65698 5.39087C8.6626 6.79468 9.69019 7.90088 10.9536 7.90088ZM4.4231 8.03003C5.52368 8.03003 6.42212 7.05859 6.42212 5.83447C6.42212 4.63843 5.51245 3.68945 4.4231 3.68945C3.33374 3.68945 2.41846 4.64966 2.41846 5.84009C2.42407 7.05859 3.32251 8.03003 4.4231 8.03003ZM1.37964 13.168H5.49561C4.87231 12.292 5.43384 10.6074 6.78711 9.51807C6.18628 9.14746 5.37769 8.87231 4.4231 8.87231C1.95239 8.87231 0.262207 10.6917 0.262207 12.1628C0.262207 12.7974 0.548584 13.168 1.37964 13.168ZM7.50024 13.168H14.407C15.4009 13.168 15.7322 12.8423 15.7322 12.2864C15.7322 10.8489 13.8679 8.88354 10.9536 8.88354C8.04492 8.88354 6.17505 10.8489 6.17505 12.2864C6.17505 12.8423 6.50635 13.168 7.50024 13.168Z"></path></svg></span>Owner</th><td><span class="user"><span class="icon text-icon user-icon"><span class="user-icon-inner">O</span></span>Oscar Diaz</span></td></tr></tbody></table></header><div class="page-body"><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="19caf66e-e64e-8042-9e0f-c9e28051fc73"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Group assignment <ul id="19caf66e-e64e-808a-bb25-f6c567b2041c" class="bulleted-list"><li style="list-style-type:disc">Do your lab’s safety training</li></ul><ul id="19caf66e-e64e-8077-8c74-d5c7145962aa" class="bulleted-list"><li style="list-style-type:disc">Characterize your lasercutter’s focus, power, speed, rate, kerf, joint clearance and types.</li></ul><ul id="19caf66e-e64e-802b-8de0-e3fef0e68b17" class="bulleted-list"><li style="list-style-type:disc">Document your work to the group work page and reflect on your individual page what you learned.</li></ul></div></figure><hr id="19caf66e-e64e-80c8-a964-cd67a4ba6670"/><h1 id="19caf66e-e64e-80af-be44-f445fcbc2aca" class="">About this week</h1><blockquote id="19caf66e-e64e-8079-95b4-edd7ff674a24" class=""><em>Briefly describe the goal of the assignment. What are you characterizing, testing, or exploring</em></blockquote><p id="19caf66e-e64e-8052-8d25-f3da899ff342" class="">Part one of this week is to work together as a group to build the skills to use the machines effectively, safely and to characterize there properties.</p><hr id="19caf66e-e64e-80b2-98c9-ee005dba3f59"/><h1 id="19caf66e-e64e-80d2-9c95-dc6a961a0e51" class="">Tools and materials used</h1><blockquote id="19caf66e-e64e-803d-a11b-edede72657a4" class=""><em>List all the machines, software and materials used in this assigment.</em></blockquote><ul id="19caf66e-e64e-8073-8362-c5c498165e5c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.grasshopper3d.com/">Grashopper</a></li></ul><ul id="19caf66e-e64e-8047-b149-d287f358adb1" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.autodesk.com/eu/products/fusion-360/">Fusion 360</a></li></ul><ul id="19caf66e-e64e-809a-8435-e2ab13157c8e" class="bulleted-list"><li style="list-style-type:disc"><a href="https://inkscape.org/">Inkscape</a></li></ul><ul id="19caf66e-e64e-8027-a3a9-fb4b91c7efec" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.fluxlasers.com/beam-studio/">Beam Studio</a></li></ul><ul id="19caf66e-e64e-804a-970b-d86621b997cb" class="bulleted-list"><li style="list-style-type:disc"><a href="https://inkscape.org/">Inkscape</a></li></ul><hr id="19caf66e-e64e-809d-977c-f826b3d6fcf9"/><h1 id="19caf66e-e64e-801d-9b8e-d13c6ed1cb9a" class="">Process and methodology</h1><blockquote id="19caf66e-e64e-8078-9ef0-f4cec481f78a" class="">Describe step-by-step what the group did. Include sketches, screenshots, or videos if possible.</blockquote><h2 id="19caf66e-e64e-80f2-8d03-f3d7bdad3997" class=""><strong>1. Safety Induction</strong></h2><p id="19caf66e-e64e-80e9-a145-f37825ccdb24" class="">The induction that we were given for this class was the same standard induction that members of the FabLab would get. The key goals are to understand how the laser can create unsafe situations and what to do when those situations arise. As a rule we try to pull from manufacturers recommendations, in the guide below we were guided buy <a href="https://support.flux3dp.com/hc/en-us/articles/333757063556-FLUX-Safety-Precautions#:~:text=%2D%20Do%20not%20leave%20the%20machine,the%20laser%20light%20during%20operation.">Flux</a> who have complied some nice concise guidelines.</p><ol type="1" id="19caf66e-e64e-8063-a15e-cf23a7e1b6ca" class="numbered-list" start="1"><li>General Safety Precautions</li></ol><p id="19caf66e-e64e-80be-9ffc-d72c026e9471" class="">✔ Read the Manual – Always review the manufacturer’s instructions before operating. ✔ Use in a Well-Ventilated Area – Ensure proper airflow and fume extraction to prevent inhalation of hazardous fumes. ✔ Know Emergency Procedures – Familiarize yourself with emergency stop functions, fire extinguishers, and first aid kits.</p><ol type="1" id="19caf66e-e64e-80da-b3ae-cc5d625dc1ec" class="numbered-list" start="1"><li>Personal Protective Equipment (PPE)</li></ol><p id="19caf66e-e64e-80e8-840e-d43d6bfdfbf4" class="">✔ Safety Glasses – Use laser safety glasses if operating an open-lid machine. ✔ Gloves (Optional) – Wear gloves when handling materials but NOT while operating the machine (loose gloves can get caught). ✔ Mask/Respirator – If working with materials that emit strong fumes, wear a respirator suited for fumes/particulates.</p><ol type="1" id="19caf66e-e64e-8055-b17f-cad0d1138de7" class="numbered-list" start="1"><li>Machine Setup &amp; Pre-Operation Checks</li></ol><p id="19caf66e-e64e-80ee-9426-d8df2a4a7459" class="">✔ Inspect the Machine – Check for damaged components, frayed cables, or misaligned laser lenses. ✔ Clean the Work Area – Remove debris and flammable materials from the laser bed. ✔ Check Ventilation &amp; Air Assist – Ensure the exhaust fan and air assist are functioning properly.</p><ol type="1" id="19caf66e-e64e-8025-8f05-efaf345fbb1d" class="numbered-list" start="1"><li>Approved &amp; Prohibited Materials</li></ol><p id="19caf66e-e64e-80cc-8717-d224dbdf0933" class="">✔ Approved Materials – Wood, acrylic, paper, leather, fabric, cardboard, certain plastics. ❌ Prohibited Materials – PVC, vinyl, polycarbonate, fiberglass, coated metals, and materials that produce toxic fumes.</p><ol type="1" id="19caf66e-e64e-8081-8600-d864334bc058" class="numbered-list" start="1"><li>Operating the Laser Cutter</li></ol><p id="19caf66e-e64e-80f8-a7d6-fc44ae65990f" class="">✔ Never Leave the Machine Unattended – Always monitor during operation. ✔ Secure the Material – Ensure the work piece is flat and properly positioned to prevent movement.</p><p id="19caf66e-e64e-8040-9914-ff7861d44ac0" class="">✔ Use Proper Settings – Match power, speed, and frequency settings to the material type and thickness.</p><ol type="1" id="19caf66e-e64e-8019-b519-dea52bab7eec" class="numbered-list" start="1"><li>Fire Prevention &amp; Emergency Procedures</li></ol><p id="19caf66e-e64e-80ee-b0be-eb0a28f4e4af" class="">🔥 Stay Alert for Fires – If flames persist for more than a few seconds, stop the job immediately and smother fire with fire blanket. 🧯 Fire Extinguisher Nearby – Use a CO₂ or dry chemical extinguisher if needed. Do NOT use water. ⚡ Emergency Shutoff – Know how to quickly power down the machine in case of a malfunction.</p><ol type="1" id="19caf66e-e64e-8066-98d5-f36c682eedab" class="numbered-list" start="1"><li>Post-Operation Maintenance</li></ol><p id="19caf66e-e64e-8038-a6b4-db1a7c9b6068" class="">✔ Allow Cooling Time – Wait before removing materials to avoid burns. ✔ Clean the Work Area – Remove any leftover debris to prevent fire hazards. ✔ Check &amp; Clean Components – Regularly clean the lens, mirrors, and exhaust system.</p><h2 id="19caf66e-e64e-801a-b13d-ef42c6bdad1f" class=""><strong>2. Characterize</strong></h2><h3 id="19caf66e-e64e-80ab-98d2-e5a333cad931" class=""><strong>Speed and Power</strong></h3><p id="19caf66e-e64e-8020-b0ab-fb1bda1bb28a" class="">The key learning outcomes from the below is the relationship between power and speed and how they affect a cut. For a given result often possible to get what you need by holding one constant and reducing the variables to just one. For example on most of our lasers power will max out before speed so keeping power at the highest safe level and then using spread as you key variable for dialing in your depth of cut has been a key learning. See some experimentation below from our group assignment.</p><figure id="19caf66e-e64e-80d2-b88b-df9379ca124b" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-1.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-1.jpeg"/></a></figure><p id="19caf66e-e64e-802a-9adf-ed88a80f722a" class=""><em>Material testing</em></p><figure id="19caf66e-e64e-80be-9202-d766963d6865" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-2.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-2.jpeg"/></a></figure><p id="19caf66e-e64e-8065-87ea-e53754834122" class=""><em>Open Beam Studio</em></p><figure id="19caf66e-e64e-8004-9c26-ca9802baefac" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-3.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-3.jpeg"/></a></figure><p id="19caf66e-e64e-80d1-b988-c0474728e19d" class=""><em>Use camera tool to scan bed</em></p><figure id="19caf66e-e64e-80d4-a3d9-e49c516f0e24" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-4.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-4.jpeg"/></a></figure><p id="19caf66e-e64e-80ab-a32c-e9c0619814e2" class=""><em>In this example we are using some of beam studios build in test cards</em></p><p id="19caf66e-e64e-804e-b8da-c404689def4f" class=""><em>The x-axis represents increasing power and the y-axis represents increasing speed</em></p><figure id="19caf66e-e64e-8044-b147-ccfea10deb96" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-5.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-5.jpeg"/></a></figure><p id="19caf66e-e64e-806e-afbe-c0eeefbbc3d1" class=""><em>We place the test card on the stock in the machine</em></p><figure id="19caf66e-e64e-8032-a962-e59554a92a50" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-6.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-6.jpeg"/></a></figure><p id="19caf66e-e64e-80cc-a858-e32a289dd629" class=""><em>This has set all the layers to control the laser power and speed for each square</em></p><figure id="19caf66e-e64e-80c0-8d35-de4dc42e8051" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-7.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-7.jpeg"/></a></figure><p id="19caf66e-e64e-8025-a47d-c529c34c4bf7" class=""><em>After sending the program analyses the vectors and create a tool path</em></p><figure id="19caf66e-e64e-805e-825a-ccc4be238ca1" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-8.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-8.jpeg"/></a></figure><p id="19caf66e-e64e-802e-b635-e388f91a365c" class=""><em>We hit start and the laser starts its work</em></p><figure id="19caf66e-e64e-8037-9351-d61c4fd87d88" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-9.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-9.jpeg"/></a></figure><p id="19caf66e-e64e-8019-a636-ede3f8a78f5a" class=""><em>Examples in a few materials</em></p><figure id="19caf66e-e64e-80d2-b636-ff1d0d4f639b" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-10.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-10.jpeg"/></a></figure><p id="19caf66e-e64e-8031-baa6-d8db8636c80b" class=""><em>Repeat the process for the engravings</em></p><figure id="19caf66e-e64e-80b1-9782-fc16c5da25f0" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-11.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-11.jpeg"/></a></figure><p id="19caf66e-e64e-80c8-8db3-f971ee90b2ed" class=""><em>Click through</em></p><figure id="19caf66e-e64e-8027-85b3-d89511f4f5a2" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-12.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-12.jpeg"/></a></figure><p id="19caf66e-e64e-80c0-b446-eff29fc4effe" class=""><em>And start the job</em></p><figure id="19caf66e-e64e-8019-80a2-e9d731a7e6c9" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-13.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-13.jpeg"/></a></figure><p id="19caf66e-e64e-8037-a492-dfcc1a2f0961" class=""><em>Examples in a few materials</em></p><figure id="19caf66e-e64e-8034-b6da-c447b4d649c7" class="image"><a href="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-9.jpeg"><img src="https://fabacademy.org/2025/labs/creativespark/students/carl-mcateer/images/w3/w3-sc3-9.jpeg"/></a></figure><hr id="19caf66e-e64e-8011-8443-f8d792da602b"/><h1 id="19caf66e-e64e-8077-b4c1-fc333f17d882" class="">Group conclusions</h1><blockquote id="19caf66e-e64e-804c-909b-d8a2b6811fc0" class=""><strong>Findings:</strong> [What did you learn from the process?]</blockquote><blockquote id="19caf66e-e64e-8093-8f08-c3c0e7818f71" class=""><strong>Challenges:</strong> [What issues did you encounter?]</blockquote><blockquote id="19caf66e-e64e-800f-bea3-ed7b618173aa" class=""><strong>Solutions:</strong> [How did you solve them?]</blockquote><p id="19caf66e-e64e-80c4-ba0c-c9fb318f5305" class="">Understanding the how and why of the laser has been the key for dealing with novel situations when they arise and also bringing jobs to the next level in terms of fit and finish. Understanding kerf in particular is a key factor in gaining control as to how your parts go together.</p><hr id="19caf66e-e64e-805f-ac0d-cdad04c83dbb"/><h1 id="19caf66e-e64e-8069-a377-e07512193ae4" class="">Files </h1><p id="19caf66e-e64e-80bf-9680-f8545f55d632" class="">See below link to to files created this week:</p><figure id="19caf66e-e64e-8048-a2f6-db2342fdc143"><div class="source"><a href="Computer%20controlled%20cutting%2019caf66ee64e80bda4d0f32faf025695/Kerf_fit_test.zip">Kerf_fit_test.zip</a></div></figure><p id="19caf66e-e64e-803d-8dbd-c07f6bf95726" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

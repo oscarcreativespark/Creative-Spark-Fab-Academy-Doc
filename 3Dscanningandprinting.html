@@ -1,0 +1,724 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3D Scanning and Printing</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="19caf66e-e64e-8092-8959-d349ebef22b9" class="page mono"><header><img class="page-cover-image" src="3d.jpg" style="object-position:center 34.29%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">⚙️</span></div><h1 class="page-title">3D Scanning and Printing</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-person"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesPerson"><path d="M10.9536 7.90088C12.217 7.90088 13.2559 6.79468 13.2559 5.38525C13.2559 4.01514 12.2114 2.92017 10.9536 2.92017C9.70142 2.92017 8.65137 4.02637 8.65698 5.39087C8.6626 6.79468 9.69019 7.90088 10.9536 7.90088ZM4.4231 8.03003C5.52368 8.03003 6.42212 7.05859 6.42212 5.83447C6.42212 4.63843 5.51245 3.68945 4.4231 3.68945C3.33374 3.68945 2.41846 4.64966 2.41846 5.84009C2.42407 7.05859 3.32251 8.03003 4.4231 8.03003ZM1.37964 13.168H5.49561C4.87231 12.292 5.43384 10.6074 6.78711 9.51807C6.18628 9.14746 5.37769 8.87231 4.4231 8.87231C1.95239 8.87231 0.262207 10.6917 0.262207 12.1628C0.262207 12.7974 0.548584 13.168 1.37964 13.168ZM7.50024 13.168H14.407C15.4009 13.168 15.7322 12.8423 15.7322 12.2864C15.7322 10.8489 13.8679 8.88354 10.9536 8.88354C8.04492 8.88354 6.17505 10.8489 6.17505 12.2864C6.17505 12.8423 6.50635 13.168 7.50024 13.168Z"></path></svg></span>Owner</th><td><span class="user"><span class="icon text-icon user-icon"><span class="user-icon-inner">O</span></span>Oscar Diaz</span></td></tr></tbody></table></header><div class="page-body"><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="19caf66e-e64e-803e-8223-f6d111d9038c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Group assignment <ul id="19caf66e-e64e-8073-9e32-cf1e91d5a5ca" class="bulleted-list"><li style="list-style-type:disc">Test the design rules for your 3D printer(s)</li></ul><ul id="19caf66e-e64e-80c5-8fff-c9e347d3766e" class="bulleted-list"><li style="list-style-type:disc">Document your work on the group work page and reflect on your individual page what you learned about characteristics of your printer(s)</li></ul></div></figure><hr id="19caf66e-e64e-80c2-8cbd-f0fc2fa79f87"/><h1 id="19caf66e-e64e-80f6-b807-e30539fc41a7" class="">About this week</h1><blockquote id="19caf66e-e64e-80a7-896f-df86b5dbf2ed" class=""><em>Briefly describe the goal of the assignment. What are you characterizing, testing, or exploring</em></blockquote><p id="19caf66e-e64e-80b1-a197-f1349928c9ae" class="">Carl:</p><p id="1a0af66e-e64e-803b-98bb-feb3fc18d1aa" class="">This week we are all taking Niel’s tests prints and testing them on 3 different printing proceses in our Lab, SLS, SLA and FDM.</p><p id="1a4af66e-e64e-8078-82b5-f1f4510824c5" class="">Thom:</p><p id="1a4af66e-e64e-80df-911c-db0eb82a5175" class="">I chose to work with the Formlabs Fuse 1 SLS 3D printer to run the test prints through.</p><p id="1a6af66e-e64e-8056-a370-e25380ff7f24" class="">Diarmuid: I chose to work with the FDM printers - specifically the Prusa i3Mk3s+</p><hr id="19caf66e-e64e-8075-abdc-d76ab3efc7c4"/><h1 id="19caf66e-e64e-8061-9296-eaeeaf133134" class="">Tools and materials used</h1><blockquote id="19caf66e-e64e-80b3-a6cb-cfdddfeb531d" class=""><em>List all the machines, software and materials used in this assignment.</em></blockquote><ul id="19caf66e-e64e-80f3-ad44-f4b08e8656c1" class="bulleted-list"><li style="list-style-type:disc">Formlabs - Form 3L</li></ul><ul id="1a0af66e-e64e-807f-968d-eb3302a500b1" class="bulleted-list"><li style="list-style-type:disc">Formlabs - Wash L</li></ul><ul id="1a0af66e-e64e-80dd-a876-fba710ea193f" class="bulleted-list"><li style="list-style-type:disc">Formlabs - Cure L</li></ul><ul id="1a0af66e-e64e-80a1-b874-e38000f13a24" class="bulleted-list"><li style="list-style-type:disc">Formlabs - Clear V4 resin</li></ul><p id="1a4af66e-e64e-80c3-b70e-fb5b77b7d8db" class="">
+</p><p id="1a4af66e-e64e-8025-8d1e-f4818243dc35" class="">Thom:</p><ul id="1a4af66e-e64e-801d-ad45-c1b39ce83f00" class="bulleted-list"><li style="list-style-type:disc">Formlabs - Fuse 1</li></ul><ul id="1a4af66e-e64e-806b-8a30-ebb5603d4a99" class="bulleted-list"><li style="list-style-type:disc">Formlabs - Fuse Sift</li></ul><ul id="1a4af66e-e64e-807f-9cbc-f57a3fbd5dbd" class="bulleted-list"><li style="list-style-type:disc">Formlabs - ReForm Slicing Software</li></ul><ul id="1a4af66e-e64e-8081-bd19-f346cd871340" class="bulleted-list"><li style="list-style-type:disc">Formlabs - Nylon 12 powder</li></ul><p id="1a6af66e-e64e-8092-b1c7-db0f57672a44" class="">
+</p><p id="1a6af66e-e64e-8077-ba9e-e6312e68abd7" class="">Diarmuid:<div class="indented"><ul id="1a6af66e-e64e-8099-8b4d-d8e788a562d3" class="bulleted-list"><li style="list-style-type:disc">Prusa i3MK3s+</li></ul><ul id="1a6af66e-e64e-8085-b31b-fce12fe94c0f" class="bulleted-list"><li style="list-style-type:disc">Prusa Slicer</li></ul><ul id="1a6af66e-e64e-806e-ac6f-cc9f9f09cd28" class="bulleted-list"><li style="list-style-type:disc">PLA filament</li></ul><ul id="1a6af66e-e64e-803c-bc22-c5d37d259077" class="bulleted-list"><li style="list-style-type:disc">PETG filament</li></ul></div></p><hr id="19caf66e-e64e-8020-ab98-f54b2949af35"/><h1 id="19caf66e-e64e-802a-b3fd-f2cfe76437b8" class="">Process and methodology</h1><blockquote id="19caf66e-e64e-809a-a16d-cd99d0b93f81" class="">Describe step-by-step what the group did. Include sketches, screenshots, or videos if possible.</blockquote><p id="19caf66e-e64e-80e6-a433-f3ae5c9c681d" class="">Carl - SLA Test Prints on the Formlabs Form 3L</p><p id="1a0af66e-e64e-805e-a3bd-c6353cae6178" class="">After downloading the test files I brought them into Preform, Formlabs slicer and print managementf software. I spaced the parts out on the build platform.</p><p id="1a0af66e-e64e-809b-ba0a-c1300fa45a0b" class="">
+</p><figure id="1a0af66e-e64e-8020-9f2d-ef1339b7fe2e" class="image"><a href="Screenshot_2025-02-20_165316_Large.jpeg"><img style="width:710px" src="Screenshot_2025-02-20_165316_Large.jpeg"/></a></figure><p id="1a0af66e-e64e-80b7-9608-f615ad363df9" class="">In order to make the test work as pest as possible i needed to take into account some of the particulars of SLA printing.</p><p id="1a0af66e-e64e-80f5-b5aa-c30408a9ad68" class="">First step was to avoid “Cups”. this is where a cup like shape on the print can form a vacum like grip on the base of the resin tank. As this is a relatively fragile material this must be avoided. Damaging the botom of the tank can cause resin to leak into the electronics and optics of the printer, potentially causing irreparable damage.</p><p id="1a0af66e-e64e-8044-a85a-c54fda3fee50" class="">
+</p><p id="1a0af66e-e64e-807e-8833-d295507bdfe7" class="">The next step is dealing with layer adhesion. In my experience in order the first layer of resin prints adhere very strongly to the build plate, to the point where it is quite easy to damage the part when removing it.</p><p id="1a0af66e-e64e-8063-b090-f6f0e6f1f78d" class="">So to solve this issue  even when the prints are parallel to the build plate i raise them up and place them on supports.</p><p id="1a0af66e-e64e-80db-84a0-f671c5373a54" class="">Note that when auto adding supports to the print it generate them everywhare, causing issues with the bridging one for example. So i want en and manually removed areas where the support would have interfered with the test.</p><figure id="1a0af66e-e64e-80a6-9fc5-e553e71efc0c" class="image"><a href="Screenshot_2025-02-20_165418_Large.jpeg"><img style="width:710px" src="Screenshot_2025-02-20_165418_Large.jpeg"/></a></figure><p id="1a0af66e-e64e-80a0-b993-e00c72359890" class="">If i was printing a model that was not for testing purposes i would try and rotate the part so that there was not large flat areas parallel to the build plate as these can have quality issues, but for the purposes of the test it was more important to maintain the orientation of the parts for the test to have validity.</p><p id="1a0af66e-e64e-80e8-ae7b-fcbe41578f48" class="">
+</p><figure id="1a0af66e-e64e-80a3-967e-d1e21606a3af" class="image"><a href="Screenshot_2025-02-20_170038_Large.jpeg"><img style="width:376px" src="Screenshot_2025-02-20_170038_Large.jpeg"/></a></figure><p id="1a0af66e-e64e-80ae-b57e-f8b1b71f1b76" class="">Preform does a good job of warning me if i have any areas of the print that will cause issues. Here you can see that I have some warnings but i let the print go as we are deliberately testing features like unsupported overhangs.</p><figure id="1a0af66e-e64e-80bf-9b2c-e0f3963ac012" class="image"><a href="image_Large.jpeg"><img style="width:710px" src="image_Large.jpeg"/></a></figure><p id="1a0af66e-e64e-80c5-9204-f5e08e01cf56" class="">The prints we sent over the network to the printer. On startup i got a message saying that the printer needed to be leveled so i went through the leveling procedure.</p><figure id="1a0af66e-e64e-8093-a625-f5530bb87bf7" class="image"><a href="Resin_Print_-_2.jpeg"><img style="width:640px" src="Resin_Print_-_2.jpeg"/></a></figure><p id="1a0af66e-e64e-802b-9d6f-eb9f45d19e69" class="">Now that the prints are running i will wait till the morning to see how they come out…</p><figure id="1a0af66e-e64e-8056-b4e5-e02b72ae88e4" class="image"><a href="Resin_Print_-_3.jpeg"><img style="width:640px" src="Resin_Print_-_3.jpeg"/></a></figure><p id="1a3af66e-e64e-80e1-97d9-cfa114eae453" class="">Day two, Prints came out great, no fails.</p><p id="1a3af66e-e64e-80a6-8cee-dd8e30d9080c" class="">
+</p><figure id="1a3af66e-e64e-80b1-9826-c931edbd142a" class="image"><a href="Week5_Goup_P2_-_1.jpeg"><img style="width:640px" src="Week5_Goup_P2_-_1.jpeg"/></a></figure><p id="1a3af66e-e64e-80e0-939d-e17e3a687432" class="">All plopped into the washer for 20min in IPA</p><figure id="1a3af66e-e64e-80c2-af2a-e04167725ac8" class="image"><a href="Week5_Goup_P2_-_4.jpeg"><img style="width:640px" src="Week5_Goup_P2_-_4.jpeg"/></a></figure><p id="1a3af66e-e64e-8019-acc9-e5c42e1b7075" class="">And then into the curing station with the supports still on. The settings were formlabs standard profiles for Clear v4 resin.</p><figure id="1a3af66e-e64e-80cc-8b10-f80f0220c9be" class="image"><a href="Week5_Goup_P2_-_15.jpeg"><img style="width:640px" src="Week5_Goup_P2_-_15.jpeg"/></a></figure><p id="1a4af66e-e64e-80e9-a41a-e452896a14b6" class="">
+</p><hr id="1a4af66e-e64e-800f-9a80-d6019fd21893"/><p id="1a3af66e-e64e-80aa-8ae4-d418fb85ec6e" class=""><strong>Thom: </strong><em>Preparing, printing and post-processing the test prints on the Fuse 1 SLS 3D Printer</em></p><h3 id="1a4af66e-e64e-8080-942f-f581c180bc49" class="">Preparing for Printing</h3><ol type="1" id="1a4af66e-e64e-80f2-8c7d-ebb7dc7bab0c" class="numbered-list" start="1"><li>Preparing the SLS printer<p id="1a4af66e-e64e-8038-886d-d28048ceb1ce" class="">I turned on the SLS printer and let it warm up for about an hour while checking all the connections and making sure the printer was leveled.</p><figure id="1a4af66e-e64e-8004-9316-c5faf2aca073" class="image"><a href="checks1.jpg"><img style="width:681.9921875px" src="checks1.jpg"/></a></figure></li></ol><p id="1a4af66e-e64e-809f-a356-f9dfd9b40660" class="">2. Adding Material</p><p id="1a4af66e-e64e-80c3-a62f-f82fea58bdc2" class="">For this print I would be using Nylon powder, so I removed the material container from the post-processing chamber and interted it into the print bed. I made sure to check that the power was connected and it was secured into place.</p><figure id="1a4af66e-e64e-80db-abdd-d9a4d8be7db4" class="image"><a href="setup1.jpg"><img style="width:709.9921875px" src="setup1.jpg"/></a></figure><figure id="1a4af66e-e64e-8051-a5cd-e62aee949330" class="image"><a href="setup2.jpg"><img style="width:589px" src="setup2.jpg"/></a></figure><figure id="1a4af66e-e64e-80a4-9761-d264330b309c" class="image"><a href="setup3.jpg"><img style="width:600px" src="setup3.jpg"/></a></figure><figure id="1a4af66e-e64e-80b7-bd25-d72957627538" class="image"><a href="setup4.jpg"><img style="width:600px" src="setup4.jpg"/></a></figure><p id="1a4af66e-e64e-8057-9724-e0c474d3a623" class="">
+</p><h3 id="1a4af66e-e64e-80c9-8f96-d7219856750c" class="">Preparing the Files</h3><p id="1a4af66e-e64e-8074-b08f-cfe079266149" class="">I prepared the files for slicing and sending to the printed in Preform.</p><ol type="1" id="1a4af66e-e64e-809f-8d2e-fe4258d576f4" class="numbered-list" start="1"><li>Connecting to the printer<p id="1a4af66e-e64e-802d-9f07-de376644e60e" class="">Once the printer was warmed up and the material was added, I connected to the printer via the network and opened the Preform software.</p><p id="1a4af66e-e64e-8046-992e-df88ae581b23" class="">
+</p><figure id="1a4af66e-e64e-8071-853a-ceb92c4830b7" class="image"><a href="form2.jpg"><img style="width:681.984375px" src="form2.jpg"/></a></figure><p id="1a4af66e-e64e-8015-8bf0-eaa6a5351381" class="">
+</p></li></ol><ol type="1" id="1a4af66e-e64e-80f2-a35e-e7c0e8ac128e" class="numbered-list" start="2"><li>Sorting the files</li></ol><p id="1a4af66e-e64e-8054-aa53-dc8e374c4f08" class="">Since I had a multiple files going to the same print job, I arranged then to minimise the height of the print and for overall print time. I first ran an auto-sort, then rearranged the individual files so that they printed in the orientation they would in an FDM printer.</p><p id="1a4af66e-e64e-80c6-8018-c6749a0d30fa" class="">
+</p><figure id="1a4af66e-e64e-80d3-b8e2-fd976708b6c6" class="image"><a href="preform1.jpg"><img style="width:709.9921875px" src="preform1.jpg"/></a></figure><p id="1a4af66e-e64e-8056-bba7-f5e7722981a8" class="">
+</p><ol type="1" id="1a4af66e-e64e-8092-be71-e43ba2b69317" class="numbered-list" start="3"><li>Slicing and sending to the print</li></ol><p id="1a4af66e-e64e-808f-9f9f-f31b222ce431" class="">Once the files were appropriately orientated I sliced them and sent them to the printer.</p><p id="1a4af66e-e64e-8053-9f96-fe9cf3039398" class="">
+</p><figure id="1a4af66e-e64e-8094-94bd-ca1ee29337c9" class="image"><a href="preform4.jpg"><img style="width:709.984375px" src="preform4.jpg"/></a></figure><p id="1a4af66e-e64e-8053-a671-e651e623cee8" class="">
+</p><h3 id="1a4af66e-e64e-8034-9766-e75b9165d312" class="">Printing</h3><ol type="1" id="1a4af66e-e64e-800d-98ff-c60be5dfe13f" class="numbered-list" start="1"><li>Final Checks<p id="1a4af66e-e64e-808a-91d0-d86f363b57e0" class="">Once I was ready to print I ran the automatic printer checks and then started the print.</p></li></ol><p id="1a4af66e-e64e-8071-a1dc-c8ac3fa4e8a3" class="">
+</p><figure id="1a4af66e-e64e-80d1-b5fe-ec480f7721d2" class="image"><a href="preprint.jpg"><img style="width:600px" src="preprint.jpg"/></a></figure><p id="1a4af66e-e64e-80f6-83f3-cda3d846584f" class="">
+</p><ol type="1" id="1a4af66e-e64e-8004-989c-da7c2fd958fd" class="numbered-list" start="2"><li>Printing</li></ol><p id="1a4af66e-e64e-8054-8ed3-ee0a0d899af5" class="">In the video below you can see the print in action.</p><p id="1a4af66e-e64e-80dd-acdc-f8e053387a02" class="">
+</p><figure id="1a4af66e-e64e-80ef-a757-ccf2480edae0"><div class="source"><a href="output_fastest.mp4">attachment:28b12b71-e317-41a9-a5d4-6c5db1d3e8fc:output_fastest.mp4</a></div></figure><p id="1a4af66e-e64e-801b-9634-e1d1cce00da6" class="">
+</p><h3 id="1a4af66e-e64e-80ad-bf7d-df63ed66a431" class="">Post-processing</h3><ol type="1" id="1a4af66e-e64e-803b-b08f-fe6b7617dccf" class="numbered-list" start="1"><li>Transfering the print to the post-processing chamber and cooling<p id="1a4af66e-e64e-8055-8eee-c9355c075c55" class="">The print, still in the material container, was transferred to the post-processing chamber. It had to be left for approximately 3 hours to cool down.</p></li></ol><p id="1a4af66e-e64e-8036-a8ca-f95b71b2b6c1" class="">
+</p><figure id="1a4af66e-e64e-80e8-906a-c66c54de0704" class="image"><a href="cool.jpg"><img style="width:4096px" src="cool.jpg"/></a></figure><figure id="1a4af66e-e64e-80a1-891a-f39e933b10f7" class="image"><a href="trans.jpg"><img style="width:4096px" src="trans.jpg"/></a></figure><p id="1a4af66e-e64e-8014-b2f3-ec21c0bc2fb9" class="">
+</p><ol type="1" id="1a4af66e-e64e-80b8-8e27-d868145ed41a" class="numbered-list" start="2"><li>Removing from the material matrix</li></ol><p id="1a4af66e-e64e-802a-8c83-d0582a96d7f5" class="">Once the print was cooled down I removed it from the material matrix and placed it in the preparation area of the chamber (below which was a container to catch the waste material).</p><p id="1a4af66e-e64e-8005-84f1-d812b26ebd16" class="">
+</p><figure id="1a4af66e-e64e-801b-8324-cac8f1a5646e" class="image"><a href="removed.jpg"><img style="width:710px" src="removed.jpg"/></a></figure><p id="1a4af66e-e64e-806c-a001-da1d594a0703" class="">
+</p><ol type="1" id="1a4af66e-e64e-805c-871f-cb5663281a2b" class="numbered-list" start="3"><li>Cleaning up the print</li></ol><p id="1a4af66e-e64e-809f-9d4a-deb90d8adb5e" class="">The final step was to clean the excess material from the print using a variety of brushes, drain cleaners and pointy dental equipment.</p><p id="1a4af66e-e64e-8035-bd8a-f1ed14e4216d" class="">
+</p><figure id="1a4af66e-e64e-8061-9e26-e58b3ae73a80" class="image"><a href="clean.jpg"><img style="width:3072px" src="clean.jpg"/></a></figure><p id="1a6af66e-e64e-80eb-ad5a-f1af46e3f9fa" class="">
+</p><h3 id="1a6af66e-e64e-80a8-a4b0-daaed4d61848" class="">Preparing and Printing FDM parts - Prusa style!!</h3><p id="1a6af66e-e64e-807e-9258-eae9c814fb6a" class="">
+</p><p id="1a6af66e-e64e-809b-a207-e9bec7b6c314" class="">Step 1</p><p id="1a6af66e-e64e-8079-80c7-d989eb2357b0" class="">Download Niel’s sample files.</p><p id="1a6af66e-e64e-80d8-a4e9-e5c96ddbe905" class="">
+</p><p id="1a6af66e-e64e-8025-abd8-e676c236ac9a" class="">Step 2 </p><p id="1a6af66e-e64e-80e5-83ea-de9a9499722e" class="">Import into Prusa Slicer for 3d printing. Space the parts - I have these well-spaced and for printing one object at a time you need to make sure they print in sequence so that the print head will not crash into the parts. You can check this when looking through the sliced preview and checking each layer.</p><figure id="1a6af66e-e64e-8058-ab7b-f353b8a6216a" class="image"><a href="pic_05_6.jpeg"><img style="width:710px" src="pic_05_6.jpeg"/></a></figure><p id="1a6af66e-e64e-8013-8275-c0218cc9088f" class="">
+</p><p id="1a6af66e-e64e-806e-b6b3-c95c83958fdc" class="">I just changed a few things in the print settings</p><ol type="1" id="1a6af66e-e64e-8091-b1a1-d501f760c361" class="numbered-list" start="1"><li> “avoid crossing parimeters” in the Layers and parimeters section. <figure id="1a6af66e-e64e-80ed-9efa-cc5646c12586" class="image"><a href="pic_05_5.jpeg"><img style="width:682px" src="pic_05_5.jpeg"/></a></figure></li></ol><p id="1a6af66e-e64e-8071-9a28-f86308bd7ca8" class="">
+</p><ol type="1" id="1a6af66e-e64e-8089-acbe-cf94313e1d65" class="numbered-list" start="2"><li>under Output options tick Complete individual objects, you might need to increase the height section if doing this make sure your parts will start printing at the front of the bed and work back.</li></ol><figure id="1a6af66e-e64e-80fa-b84d-e9082df01711" class="image"><a href="pic_05_4.jpeg"><img style="width:710px" src="pic_05_4.jpeg"/></a></figure><p id="1a6af66e-e64e-80ba-8618-eb7acaab91d9" class="">
+</p><p id="1a4af66e-e64e-8078-a9d1-d4debdf2ed30" class="">make sure that parts are evenly spaced - there will be a bounding box around the parts this relates to  the extruder clearance radius in the screen shot above (but dont change this unless you understand what you are doing) also make sure the parts are in order printing front to back - you can adjust the order in window on the right by dragging and dropping the object part names. </p><figure id="1a6af66e-e64e-806e-9968-eebbba0d50c4" class="image"><a href="pic_05_3.jpeg"><img style="width:710px" src="pic_05_3.jpeg"/></a></figure><p id="1a6af66e-e64e-8090-9ed8-ecc3a65c8f76" class="">Also make sure the correct material is selected in my case Prusament PETG.</p><p id="1a6af66e-e64e-8077-94fe-dd32d2c3d6d5" class="">
+</p><p id="1a4af66e-e64e-8059-9500-eda58f128e5c" class="">click slice now.</p><figure id="1a6af66e-e64e-8040-b47c-dd040f78e88a" class="image"><a href="pic_05_2.jpeg"><img style="width:714.9921875px" src="pic_05_2.jpeg"/></a></figure><p id="1a6af66e-e64e-8051-9ef0-e539ee41a364" class="">check the layer preview using the slider to the right of the screen.</p><figure id="1a6af66e-e64e-8086-9130-fec6509f6111"><div class="source"><a href="prusa_layer_check.mp4">attachment:fae667be-f4a1-4c4e-9786-9959aa252454:prusa_layer_check.mp4</a></div></figure><p id="1a6af66e-e64e-8085-b7f4-e252085538fb" class="">this looks good - sequential printing like this has many benefits including improved layer adhesion less stringing and if a part fails something might finish - as we will see later…</p><p id="1a6af66e-e64e-801a-a88c-dac3583f19c8" class="">All looks good so we can export to SD card - </p><p id="1a6af66e-e64e-80ef-a38a-ee4acd74b7cd" class="">Take the SD card to the 3d Printer</p><figure id="1a6af66e-e64e-80ef-a1e6-d2f047c4d913" class="image"><a href="pic_05_8.jpeg"><img style="width:480px" src="pic_05_8.jpeg"/></a></figure><p id="1a6af66e-e64e-803c-939a-c0683ff725df" class="">
+</p><p id="1a6af66e-e64e-8042-9071-dfaf678d11aa" class="">navigate the onscreen display with the control knob to print from SD.</p><figure id="1a6af66e-e64e-800a-aaf6-c3bea6aa85b3" class="image"><a href="pic_05_9.jpeg"><img style="width:640px" src="pic_05_9.jpeg"/></a></figure><p id="1a6af66e-e64e-8050-8e37-d9848f3130a2" class="">
+</p><p id="1a6af66e-e64e-8088-8840-c90d0c12ff33" class="">The printer will start to preheat - its always a good idea to stick around to inspect the first layer to make sure its sticking and that your printer is doing as expected.</p><figure id="1a6af66e-e64e-80bf-ab18-d65297218aeb" class="image"><a href="pic_05_10.jpeg"><img style="width:640px" src="pic_05_10.jpeg"/></a></figure><p id="1a6af66e-e64e-80d3-a88f-dbfbcb3da50d" class="">We can see that the print will take 7 hours I did check the first layer but forgot to photograph it heres a photo of the first part a few layers in though (probaly about 40 min into the print)</p><figure id="1a6af66e-e64e-8041-802c-df67b3d01023" class="image"><a href="pic_05_12.jpeg"><img style="width:640px" src="pic_05_12.jpeg"/></a></figure><p id="1a6af66e-e64e-80d3-972f-f40d9dc8c27d" class="">At this point I left the printer do its thing and came back regularly to check progress. </p><figure id="1a6af66e-e64e-80e1-a2e3-c4fa1e0bc62f" class="image"><a href="pic_05_18.jpeg"><img style="width:640px" src="pic_05_18.jpeg"/></a></figure><p id="1a6af66e-e64e-80f2-bc94-dd9867e6ca50" class="">I noticed some curling and stringing from the filament indicating the filament could wet and the print surface could need cleaning. All looks good apart from that so far!! </p><p id="1a6af66e-e64e-807e-ba2d-e054428dd818" class="">
+</p><p id="1a6af66e-e64e-80a6-a78e-e8c4d213d29c" class="">spoke too soon!! the last part failed😩… but because we printed one part at time have complete parts 😃.  </p><p id="1a6af66e-e64e-8043-9ade-ef5053029803" class="">
+</p><figure id="1a6af66e-e64e-8041-adb0-f9b1f975cbd8" class="image"><a href="pic_05_22.jpeg"><img style="width:480px" src="pic_05_22.jpeg"/></a></figure><figure id="1a6af66e-e64e-80d2-9a11-ef67f43fdbaf" class="image"><a href="pic_05_23.jpeg"><img style="width:480px" src="pic_05_23.jpeg"/></a></figure><p id="1a6af66e-e64e-8008-bcca-f3f726ead214" class="">
+</p><p id="1a6af66e-e64e-804b-8284-e42b30e8e9be" class="">Bead adhesion gave up on the last part and we got some spaghetti.</p><p id="1a6af66e-e64e-80a8-a1c9-e2981fe34f93" class="">
+</p><p id="1a6af66e-e64e-80e2-ba9e-e37ebea3a01a" class="">I also printed Infi</p><p id="1a6af66e-e64e-805d-8cf5-c3222249bfce" class=""> </p><p id="1a6af66e-e64e-8047-9856-caf3e4252d43" class="">
+</p><p id="1a6af66e-e64e-80b5-88ab-f4ca5c498dc0" class="">
+</p><p id="1a6af66e-e64e-8072-bd97-ecbba3177b4c" class="">
+</p><p id="1a6af66e-e64e-80f1-ab68-dba18a7f4299" class="">
+</p><hr id="1a4af66e-e64e-80c8-bdd3-f6d977bd7c3e"/><p id="1a0af66e-e64e-8063-982a-c26540da98d0" class="">TODO</p><hr id="19caf66e-e64e-8006-b106-d07eaa74f4e8"/><h1 id="19caf66e-e64e-80f9-a5ea-fd4ab946f2fe" class="">Group conclusions</h1><blockquote id="19caf66e-e64e-8090-865c-fabc26cd04c6" class=""><strong>Findings:</strong> </blockquote><p id="1a4af66e-e64e-803a-a297-f38ba8c9c6d0" class="">Thom: SLS removes many of the limitations/challenges encountered traditional FDM machines including overhang,tolerances, orientation and feature size. </p><blockquote id="19caf66e-e64e-8031-a00a-d57ab519b8c4" class=""><strong>Challenges:</strong> [What issues did you encounter?]</blockquote><blockquote id="19caf66e-e64e-8084-98e4-dde21350a8d4" class=""><strong>Solutions:</strong> [How did you solve them?]</blockquote><p id="19caf66e-e64e-80e1-9293-eabb2b27c066" class="">Type here</p><hr id="19caf66e-e64e-8032-bb01-d18367891e16"/><h1 id="19caf66e-e64e-8034-aec5-eaff2ab4b338" class="">Files </h1><blockquote id="19caf66e-e64e-8036-8d65-e07637e94f1b" class="">Add all files created for this group assignment</blockquote><p id="19caf66e-e64e-8041-bd1a-cae495059237" class="">See below link to to files created this week:</p><figure id="1a4af66e-e64e-8096-81b0-c7f2105a5f9b"><div class="source"><a href="Testing_3D_Printer_STLs.zip">Testing 3D Printer STLs.zip</a></div></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
