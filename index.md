@@ -1,10 +1,6 @@
 # index
 
-## Creative Spark - Enterprise FabLab
-
-💡
-
-> _If it’s not documented, it didnt happen” Diarmuid Kelly 2025_
+> 💡 _If it’s not documented, it didnt happen” Diarmuid Kelly 2025_
 
 ## About our Enterprise FabLab
 
