@@ -1,0 +1,707 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Electronics Design</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="19caf66e-e64e-80a4-b99b-cd11be48f10b" class="page mono"><header><img class="page-cover-image" src="ed.jpg" style="object-position:center 41.959999999999994%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">⚙️</span></div><h1 class="page-title">Electronics Design</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-person"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesPerson"><path d="M10.9536 7.90088C12.217 7.90088 13.2559 6.79468 13.2559 5.38525C13.2559 4.01514 12.2114 2.92017 10.9536 2.92017C9.70142 2.92017 8.65137 4.02637 8.65698 5.39087C8.6626 6.79468 9.69019 7.90088 10.9536 7.90088ZM4.4231 8.03003C5.52368 8.03003 6.42212 7.05859 6.42212 5.83447C6.42212 4.63843 5.51245 3.68945 4.4231 3.68945C3.33374 3.68945 2.41846 4.64966 2.41846 5.84009C2.42407 7.05859 3.32251 8.03003 4.4231 8.03003ZM1.37964 13.168H5.49561C4.87231 12.292 5.43384 10.6074 6.78711 9.51807C6.18628 9.14746 5.37769 8.87231 4.4231 8.87231C1.95239 8.87231 0.262207 10.6917 0.262207 12.1628C0.262207 12.7974 0.548584 13.168 1.37964 13.168ZM7.50024 13.168H14.407C15.4009 13.168 15.7322 12.8423 15.7322 12.2864C15.7322 10.8489 13.8679 8.88354 10.9536 8.88354C8.04492 8.88354 6.17505 10.8489 6.17505 12.2864C6.17505 12.8423 6.50635 13.168 7.50024 13.168Z"></path></svg></span>Owner</th><td><span class="user"><span class="icon text-icon user-icon"><span class="user-icon-inner">O</span></span>Oscar Diaz</span></td></tr></tbody></table></header><div class="page-body"><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="19caf66e-e64e-8016-a533-d90d0ae929cf"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">Group assignment <ul id="19caf66e-e64e-805a-8254-f60a022bc7de" class="bulleted-list"><li style="list-style-type:disc">Use the test equipment in your lab to observe the operation of a microcontroller circuit board (as a minimum, you should demonstrate the use of a multimeter and oscilloscope)</li></ul><ul id="19caf66e-e64e-8001-bc8d-c90035a177c9" class="bulleted-list"><li style="list-style-type:disc">Document your work on the group work page and reflect what you learned on your individual page</li></ul></div></figure><hr id="19caf66e-e64e-807e-aab0-dd80b19905a8"/><h1 id="19caf66e-e64e-809a-a019-d031dff40495" class="">About this week</h1><blockquote id="19caf66e-e64e-8058-a784-cdf99e6729c8" class=""><em>Briefly describe the goal of the assignment. What are you characterizing, testing, or exploring</em></blockquote><p id="19caf66e-e64e-8009-82c9-d3dcbe201b86" class="">Learning how to use an Oscilloscope I started reviewing these two videos on YouTube.</p><p id="1a8af66e-e64e-8082-bfc6-dbbbe07ce738" class=""><a href="https://youtu.be/u4zyptPLlJI?si=OFvzzVEfxAZjMUsn">https://youtu.be/u4zyptPLlJI?si=OFvzzVEfxAZjMUsn</a></p><p id="1aaaf66e-e64e-80a5-bb1e-c141f076d2f7" class="">
+</p><p id="1a8af66e-e64e-8051-aed1-e9b5305d8504" class="">and</p><p id="1a8af66e-e64e-80c9-9175-f2b2e3dc5191" class=""><a href="https://youtu.be/lSHAE_Y6snc?si=9KTCRDw6nMqq1bSD">https://youtu.be/lSHAE_Y6snc?si=9KTCRDw6nMqq1bSD</a></p><p id="1a8af66e-e64e-80ea-a16e-ed93dfb4fed6" class="">These are a good introduction guide to using Oscilloscopes. After watching these I switched on the Oscilloscope, calibrated the probes, </p><p id="1a8af66e-e64e-8010-ac7b-d3bf30cf736b" class="">Probed some boards.</p><p id="1aaaf66e-e64e-8099-a7ad-e9312a4d2ede" class="">
+</p><p id="1aaaf66e-e64e-809f-a0ac-f30a7b9dd65f" class="">Carl: Tenma 72-2610 Multimeter</p><p id="1aaaf66e-e64e-801f-ad44-d9950fb01f58" class="">My first steps for learning to use my multi meter were looking at the manual found at</p><p id="1aaaf66e-e64e-80e7-8791-ed782d8acfbf" class=""><a href="https://www.farnell.com/datasheets/2616986.pdf?_gl=1*rga25o*_gcl_aw*R0NMLjE3NDA2NTAxMDYuQ2p3S0NBaUF0NEMtQmhCY0Vpd0E4S3AwQ1VkLWxTc1RmWHA2YmZtTDNMV3VVbVotY1RqN3hyTGg3M0tRNEtOaVJ0SnhIU0pHZ2J0Und4b0N2b2dRQXZEX0J3RQ">https://www.farnell.com/datasheets/2616986.pdf?_gl=1*rga25o*_gcl_aw*R0NMLjE3NDA2NTAxMDYuQ2p3S0NBaUF0NEMtQmhCY0Vpd0E4S3AwQ1VkLWxTc1RmWHA2YmZtTDNMV3VVbVotY1RqN3hyTGg3M0tRNEtOaVJ0SnhIU0pHZ2J0Und4b0N2b2dRQXZEX0J3RQ</a>..<em>_gcl_au</em>MTEyNzIwMDQzNy4xNzQwNjQ5OTEx</p><p id="1aaaf66e-e64e-8058-a3e7-c6d239b34ba1" class="">
+</p><p id="1aaaf66e-e64e-8033-9273-c4c405a1dce0" class="">
+</p><p id="1aaaf66e-e64e-8000-9812-de45831657bc" class="">
+</p><hr id="19caf66e-e64e-809c-bd6f-cac532341506"/><h1 id="19caf66e-e64e-808c-874b-ca2e9ffbee1a" class="">Tools and materials used</h1><blockquote id="19caf66e-e64e-802b-b481-ecb4f09394da" class=""><em>List all the machines, software and materials used in this assignment.</em></blockquote><ul id="7b27b251-c070-4594-84e1-2f0cded797b9" class="bulleted-list"><li style="list-style-type:disc">OWON - SDS6062 Oscilloscope</li></ul><ul id="1a8af66e-e64e-8048-910e-f06da7529ede" class="bulleted-list"><li style="list-style-type:disc">User manual for OWON SDS6062 (PDF in the Files section bottom of page)</li></ul><ul id="1a8af66e-e64e-80a3-a312-c871a9ba36ba" class="bulleted-list"><li style="list-style-type:disc">XIAO Board programmed with a breakout board with a sensor attached and programmed with the relevant Code.</li></ul><p id="1aaaf66e-e64e-80e3-8a24-efa61c2b9563" class="">
+</p><p id="1aaaf66e-e64e-80a2-9c1c-ce521682a083" class="">Carl:</p><ul id="1aaaf66e-e64e-80d0-97af-fd650e79bd20" class="bulleted-list"><li style="list-style-type:disc">Tenma 72-2610 Multimeter</li></ul><ul id="1aaaf66e-e64e-801b-a07f-f95caa36ab78" class="bulleted-list"><li style="list-style-type:disc">Xiao ESP32-C3<br/><br/></li></ul><hr id="19caf66e-e64e-809a-b97c-d257092c1bb6"/><h1 id="19caf66e-e64e-807d-a3b6-f9bb9e3b7b6d" class="">Process and methodology</h1><blockquote id="19caf66e-e64e-8069-b745-d0a9e677d217" class="">Describe step-by-step what the group did. Include sketches, screenshots, or videos if possible.</blockquote><p id="1a8af66e-e64e-809a-b345-f160c564f04a" class="">Diarmuid Testing</p><p id="07c112da-769e-435b-97b2-6669dd800ed8" class="">Step by step testing the OWON SDS6062</p><figure id="1a8af66e-e64e-80cf-bf2c-ee98b1a01af0" class="image"><a href="pic_06_22.jpeg"><img style="width:640px" src="pic_06_22.jpeg"/></a></figure><p id="333628a9-7a93-44ac-bb78-1d69dc79cb43" class="">
+</p><p id="2bfb1859-e26c-4fc8-9973-138b2e6d613b" class="">Oscilloscopes allow you to measure a circuit&#x27;s voltage over time, giving more information than a basic digital multimeter. The image below shows a typical screen we see on the oscilloscope.</p><figure id="1a8af66e-e64e-80a7-9a78-e83432dee66b" class="image"><a href="pic_06_24.jpeg"><img style="width:714.9921875px" src="pic_06_24.jpeg"/></a></figure><p id="1a8af66e-e64e-8021-b444-dbb431c953e2" class="">
+</p><p id="298e6adc-2de6-4757-b743-5c2610f90628" class="">The probes generally have a 1X. and 10X positions. The 10X will attenuate the reading by ten (reduce the signal strength X10) we will typically have the probes set to the 10X positions.</p><figure id="1a8af66e-e64e-8044-9aae-e7c29b58dce8" class="image"><a href="53897700-507d-411a-8be6-1243b9088f97.png"><img style="width:438.8571428571429px" src="53897700-507d-411a-8be6-1243b9088f97.png"/></a></figure><p id="1a8af66e-e64e-8058-8203-dc8f72866fec" class="">
+</p><p id="1a8af66e-e64e-8024-9122-c1debaa619ab" class="">The image below shows the internal resisto setup for 10x and 1x positions 10x has a 9 M oam resistor and the 1X has a 1M oam resistor</p><figure id="1a8af66e-e64e-800b-bbd5-e332ab176e80" class="image"><a href="pic_06_26.jpeg"><img style="width:715px" src="pic_06_26.jpeg"/></a></figure><p id="1a8af66e-e64e-8021-aaef-f75b01cffbf1" class="">
+</p><p id="c73bba7a-3fc7-4ca4-af44-1006054af15a" class="">The Probes have spring-mounted tips that can be removed to probe tight to reach places.</p><figure id="1a8af66e-e64e-80e4-b21e-c2435383032f" class="image"><a href="cc08de42-2385-4694-b303-9bc5e1bfb2ad.png"><img style="width:397.9274611398964px" src="cc08de42-2385-4694-b303-9bc5e1bfb2ad.png"/></a></figure><p id="1a8af66e-e64e-806c-9910-d8fec9a5e7ef" class="">
+</p><h3 id="1a8af66e-e64e-802b-bbb3-df5d82e01b39" class="">Probe Calibration</h3><p id="1a8af66e-e64e-8034-b694-c4636980a801" class="">
+</p><p id="51e04fd7-c553-493a-b2d8-7a26c2a6f1ef" class="">I connected the first probe to the Oscilloscope CH1 and attached the probe connectors to the probe comp or frequency generator. This produces 5v at 1kHz so we can calibrate the probes.</p><figure id="1a8af66e-e64e-809e-b219-ead08c521dc1" class="image"><a href="pic_06_4.jpeg"><img style="width:640px" src="pic_06_4.jpeg"/></a></figure><p id="76105fe0-8e15-4a0d-a9ed-46d4217ef44a" class="">Note the red wave on the screen indicating ch1.</p><p id="1a8af66e-e64e-80b3-a473-f5c167f3b509" class="">
+</p><figure id="1a8af66e-e64e-8096-bcdb-ffb345a09802" class="image"><a href="pic_06_7.jpeg"><img style="width:640px" src="pic_06_7.jpeg"/></a></figure><p id="a12861f4-9187-443d-aa2a-3dc7ea0ea0d5" class="">Adjusted the vertical position and volt/div knobs to get the wave in view on screen.</p><p id="1a8af66e-e64e-8039-b530-efd0b9f79b29" class="">
+</p><figure id="1a8af66e-e64e-80aa-88ed-dfdf0f9e05a8" class="image"><a href="pic_06_8.jpeg"><img style="width:640px" src="pic_06_8.jpeg"/></a></figure><p id="f7be6bae-8729-45be-9c65-988fa392b189" class="">The probe calibration screw is at the oscilloscope connection end. This probe needed a little calibration.</p><figure id="1a8af66e-e64e-8025-b5a4-c78be0ae16bf" class="image"><a href="pic_06_9.jpeg"><img style="width:640px" src="pic_06_9.jpeg"/></a></figure><p id="1a8af66e-e64e-80e7-b96e-c148f5fc1c2e" class="">
+</p><p id="18a1dcbf-ee9c-4a73-912e-8c39d9b514f3" class="">I tried to save an image using the save button, inserted USB pen and pressed save. I followed the on-screen instructions to save the image. Used the default file name and presed enter using the multipurpose knob. At this point, the Oilliscope froze – tried many combinations of button presses, left It for a while - nothing worked  - went for a hard reset power off and on cycle -leave off for a few moments before powering on.</p><div id="1a8af66e-e64e-802e-8a53-df6915f45f6f" class="column-list"><div id="1a8af66e-e64e-8005-8de7-c9c7a36d62af" style="width:50%" class="column"><figure id="1a8af66e-e64e-8002-b6ec-f03fb72aac64" class="image"><a href="pic_06_19.jpeg"><img style="width:334.5px" src="pic_06_19.jpeg"/></a></figure></div><div id="1a8af66e-e64e-802a-b43c-c76c61367466" style="width:50%" class="column"><figure id="1a8af66e-e64e-8037-8e1f-cf8d37552c61" class="image"><a href="pic_06_23.jpeg"><img style="width:334.5px" src="pic_06_23.jpeg"/></a></figure></div></div><p id="9aea8d15-9197-45f6-88f1-ff6646e30967" class="">
+</p><p id="694a938f-988e-4096-af6c-225f045f6b87" class="">Connected the other probe to CH2 and followed the same procedure – I couldn&#x27;t seem to get control of the waveform in the viewer by adjusting the vertical position and  Volts – DIV or the Horizontal Position.</p><figure id="1a8af66e-e64e-8069-b576-dd277f5e0cba" class="image"><a href="pic_06_13.jpeg"><img style="width:640px" src="pic_06_13.jpeg"/></a></figure><div id="1a9af66e-e64e-8092-b410-ee5ad202a899" class="column-list"><div id="1a9af66e-e64e-800b-aef9-ee49785f9a34" style="width:50%" class="column"><figure id="1a8af66e-e64e-8040-9e0c-c807207d34e0" class="image" style="text-align:center"><a href="pic_06_14.jpeg"><img style="width:334.5px" src="pic_06_14.jpeg"/></a></figure></div><div id="1a9af66e-e64e-8018-906d-cbc2274cad33" style="width:50%" class="column"><figure id="1a8af66e-e64e-8087-bbcf-ddfad30e7605" class="image" style="text-align:left"><a href="3e6b06e4-2d21-4f4e-b790-8bbd356dff3e.png"><img style="width:239.99999999999997px" src="3e6b06e4-2d21-4f4e-b790-8bbd356dff3e.png"/></a></figure></div></div><p id="e27724ff-e75c-4faa-a4a5-ce6999165c0b" class="">Spotted the “autoscale” button, pressed it and presto –it was centred on the screen.</p><figure id="1a9af66e-e64e-80b0-aae1-e4c0f03e7ac2" class="image"><a href="pic_06_15.jpeg"><img style="width:640px" src="pic_06_15.jpeg"/></a></figure><p id="1a9af66e-e64e-80e7-a2d0-f70ad9599a5c" class=""> Again, slight adjustment needed on the probe collaboration screw.</p><figure id="1a9af66e-e64e-800d-8a81-d8a6e6c2c3b3" class="image"><a href="pic_06_18.jpeg"><img style="width:640px" src="pic_06_18.jpeg"/></a></figure><p id="1605e92f-be3c-4d7c-8dd4-3d5e8e054b9d" class="">
+</p><figure id="1a9af66e-e64e-8070-96af-d38949d1c190" class="image"><a href="pic_06_21.jpeg"><img style="width:640px" src="pic_06_21.jpeg"/></a></figure><p id="3f7b8fb8-5421-4fe3-a54f-3ef8a050868d" class="">Now time to start probing the XIAO</p><p id="1a9af66e-e64e-80db-856d-eee0859658f2" class="">
+</p><p id="81db41f2-8c7b-4314-a5a8-840294fd9aae" class="">Need to get some programmes and code running. I will check the 3-axis digital accelerometer to try and see the info it’s sending to and from  the XIAO –</p><p id="fafbde47-5624-4d04-b8a4-282f005fc956" class="">Pic_06_13</p><p id="3ca9e3d5-4d2b-45e4-a37d-54bc8d6e120c" class="">Push the code to the board using Arduino IDE</p><p id="1a8af66e-e64e-8070-af70-dabc93a67627" class="">
+</p><p id="19caf66e-e64e-8040-aff5-f9aa14e36b14" class="">Carl:</p><p id="1aaaf66e-e64e-80a9-8226-f039d0d58f6a" class="">Step 0:</p><p id="1aaaf66e-e64e-80b8-8eed-f1e61eaad48e" class="">Put in the battery!</p><figure id="1aaaf66e-e64e-8002-81a6-f16c10a61478" class="image"><a href="w6-sc3-5.jpeg"><img style="width:640px" src="w6-sc3-5.jpeg"/></a></figure><p id="1aaaf66e-e64e-80be-a566-d8afbe851f30" class="">Step 0.1:</p><p id="1aaaf66e-e64e-80c3-af5f-cc6a46a28f89" class="">Read the manual</p><figure id="1aaaf66e-e64e-80ab-9975-e41cd59f5df0" class="image"><a href="w6-sc3-1.jpeg"><img style="width:710px" src="w6-sc3-1.jpeg"/></a></figure><figure id="1aaaf66e-e64e-8001-adeb-e104b7687579" class="image"><a href="w6-sc3-2.jpeg"><img style="width:710px" src="w6-sc3-2.jpeg"/></a></figure><p id="1aaaf66e-e64e-8028-8334-efb1e84ea3ff" class="">
+</p><p id="1aaaf66e-e64e-8029-b78e-cce36f2b1e3a" class="">Step 1:</p><p id="1aaaf66e-e64e-801e-97fb-c6e1ab2d8247" class="">My first test is checking the current on all the pins on my ESP32-C3</p><figure id="1aaaf66e-e64e-803c-ab3a-c2ab4e6e015c" class="image"><a href="w6-sc3-3.jpeg"><img style="width:710px" src="w6-sc3-3.jpeg"/></a></figure><p id="1aaaf66e-e64e-8033-b7e3-f9be85701618" class="">To do this i connect the red and black probes as per the instructions and start to check each pin.</p><figure id="1aaaf66e-e64e-8060-819a-d4377841c5dd" class="image"><a href="w6-sc3-13.jpeg"><img style="width:640px" src="w6-sc3-13.jpeg"/></a></figure><p id="1aaaf66e-e64e-8050-b16c-df78871ac592" class="">I place the red on the pin and the black on ground</p><figure id="1aaaf66e-e64e-8000-8367-f850bfe64689" class="image"><a href="w6-sc3-12.jpeg"><img style="width:640px" src="w6-sc3-12.jpeg"/></a></figure><p id="1aaaf66e-e64e-80fb-a7da-c30c4c2fe3d6" class="">Second I tested voltage.</p><figure id="1aaaf66e-e64e-801b-9298-f6db32a34562" class="image"><a href="w6-sc3-4.jpeg"><img style="width:710px" src="w6-sc3-4.jpeg"/></a></figure><p id="1aaaf66e-e64e-80df-9ef3-ca4750049cee" class="">I set up the lead as per the instructions</p><figure id="1aaaf66e-e64e-801d-af27-c2edc3c2154d" class="image"><a href="w6-sc3-13201.jpeg"><img style="width:640px" src="w6-sc3-13%201.jpeg"/></a></figure><p id="1aaaf66e-e64e-8047-98d2-eb6e3635badd" class="">
+</p><p id="1aaaf66e-e64e-803a-a765-f51e37958361" class="">See results on the table below.</p><p id="1aaaf66e-e64e-8087-bac7-cf1603b9d7cd" class="">
+</p><table id="1aaaf66e-e64e-8037-924f-c3420a0baa48" class="simple-table"><tbody><tr id="1aaaf66e-e64e-8018-a420-c927c27ef0bd"><td id="\|hK" class="">Pin Reference</td><td id="cMuo" class="">Current</td><td id="FLvD" class="">Volts dc</td></tr><tr id="1aaaf66e-e64e-8079-93ce-cfd73a81d189"><td id="\|hK" class="">GPIO 2</td><td id="cMuo" class="">24.35 mA</td><td id="FLvD" class="">1.5 - 0.</td></tr><tr id="1aaaf66e-e64e-80b5-be4e-df1c766d8e5a"><td id="\|hK" class="">GPIO 3</td><td id="cMuo" class="">0</td><td id="FLvD" class="">0.013 v</td></tr><tr id="1aaaf66e-e64e-80b0-82bb-d147b9693e37"><td id="\|hK" class="">GPIO 4</td><td id="cMuo" class="">0</td><td id="FLvD" class="">0.11 v</td></tr><tr id="1aaaf66e-e64e-80d7-a258-c0fe009fd420"><td id="\|hK" class="">GPIO 5</td><td id="cMuo" class="">0</td><td id="FLvD" class="">0.12v</td></tr><tr id="1aaaf66e-e64e-80b7-a6a0-d6e536689a5e"><td id="\|hK" class="">GPIO 6</td><td id="cMuo" class="">75.6 uA</td><td id="FLvD" class="">3.3v</td></tr><tr id="1aaaf66e-e64e-80cd-9180-eaeafb0a4ba8"><td id="\|hK" class="">GPIO 7</td><td id="cMuo" class="">0</td><td id="FLvD" class="">0.008v</td></tr><tr id="1aaaf66e-e64e-800b-80b6-d93ea7b66336"><td id="\|hK" class="">GPIO 21</td><td id="cMuo" class="">41.75 mA</td><td id="FLvD" class="">3.3v</td></tr><tr id="1aaaf66e-e64e-803c-86d3-f69c03e1e972"><td id="\|hK" class="">GPIO 10</td><td id="cMuo" class="">0</td><td id="FLvD" class="">0.008v</td></tr><tr id="1aaaf66e-e64e-8054-89d3-d8f3d9738864"><td id="\|hK" class="">GPIO 9</td><td id="cMuo" class="">405.3 uA</td><td id="FLvD" class="">3.314v</td></tr><tr id="1aaaf66e-e64e-80b7-8308-faafc241eaf3"><td id="\|hK" class="">GPIO 8</td><td id="cMuo" class="">0</td><td id="FLvD" class="">0.008v</td></tr><tr id="1aaaf66e-e64e-80ef-a35e-c1cfc3993ccf"><td id="\|hK" class="">GPIO 20</td><td id="cMuo" class="">73.6 uA</td><td id="FLvD" class="">3.26v</td></tr><tr id="1aaaf66e-e64e-803f-930c-d48acab24f30"><td id="\|hK" class="">5V</td><td id="cMuo" class="">0</td><td id="FLvD" class="">5.122 v</td></tr><tr id="1aaaf66e-e64e-809b-b060-cf14d63c864f"><td id="\|hK" class="">3.3V</td><td id="cMuo" class="">0</td><td id="FLvD" class="">3.317 v</td></tr></tbody></table><hr id="19caf66e-e64e-80d6-bc43-cf622ccd9734"/><h1 id="19caf66e-e64e-8009-99ac-c7f474210fe7" class="">Files </h1><blockquote id="19caf66e-e64e-8086-97e9-d9bcd5ca9da4" class="">Add all files created for this group assignment</blockquote><p id="19caf66e-e64e-8018-9e17-f696c258afd4" class="">See below link to to files created this week:</p><p id="19caf66e-e64e-800d-9dff-e671316ab451" class="">
+</p><figure id="1a9af66e-e64e-801b-a2bd-dc728d00638d"><div class="source"><a href="sds6062_user_manual.pdf">sds6062 user_manual.pdf</a></div></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
