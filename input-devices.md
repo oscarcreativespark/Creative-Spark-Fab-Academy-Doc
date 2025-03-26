@@ -13,7 +13,7 @@ Group assignment
 
 > _Briefly describe the goal of the assignment. What are you characterizing, testing, or exploring_
 
-Type here
+Tested the photodiod using a multimeter
 
 ***
 
@@ -21,7 +21,10 @@ Type here
 
 > _List all the machines, software and materials used in this assigment._
 
-* Type here
+* RP2040 on a Xiao-Fab
+* Photodiode module
+* Multimeter
+* Portable Oscilloscope
 
 ***
 
@@ -30,6 +33,16 @@ Type here
 > Describe step-by-step what the group did. Include sketches, screenshots, or videos if possible.
 
 Type here
+
+<figure><img src=".gitbook/assets/w9-sc2-1.jpeg" alt=""><figcaption><p>Tested a </p></figcaption></figure>
+
+<figure><img src=".gitbook/assets/w9-sc2-2.jpeg" alt=""><figcaption></figcaption></figure>
+
+<figure><img src=".gitbook/assets/w9-sc2-3.jpeg" alt=""><figcaption></figcaption></figure>
+
+<figure><img src=".gitbook/assets/w9-sc2-4.jpeg" alt=""><figcaption></figcaption></figure>
+
+<figure><img src=".gitbook/assets/w9-sc2-5.jpeg" alt=""><figcaption></figcaption></figure>
 
 ***
 
